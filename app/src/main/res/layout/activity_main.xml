@@ -8,51 +8,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="첫번째화면"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377" />
-
     <Button
         android:id="@+id/change21Button"
         android:layout_width="137sp"
         android:layout_height="wrap_content"
-        android:text="메인 화면"
+        android:text="연락처"
         android:textColor="@color/black"
         android:backgroundTint="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/change22Button"
+        app:layout_constraintRight_toLeftOf="@+id/change22Button"
         />
 
     <Button
         android:id="@+id/change22Button"
         android:layout_width="138sp"
         android:layout_height="wrap_content"
-        android:text="두번째 화면"
-        app:layout_constraintLeft_toRightOf="@+id/change21Button"
+        android:text="갤러리"
         android:background="@drawable/color_change"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/change21Button"
-        app:layout_constraintEnd_toStartOf="@+id/change23Button" />
+        app:layout_constraintLeft_toRightOf="@+id/change21Button"
+        app:layout_constraintRight_toLeftOf="@+id/change23Button" />
 
     <Button
         android:id="@+id/change23Button"
         android:layout_width="137sp"
         android:layout_height="wrap_content"
-        android:text="세번째 화면"
+        android:text="자유"
+        android:background="@drawable/color_change"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/change22Button"
+        app:layout_constraintLeft_toRightOf="@+id/change22Button"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/color_change"/>
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -61,7 +48,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         tools:listitem="@layout/item_recycler"
-        app:layout_constraintTop_toBottomOf="@id/change21Button"
+        app:layout_constraintTop_toBottomOf="@id/change22Button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
