@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView"
@@ -12,45 +12,40 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.089" />
+        app:layout_constraintVertical_bias="0.335" />
 
     <Button
         android:id="@+id/change21Button"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/color_change"
         android:text="메인 화면"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/change22Button"
+        app:layout_constraintEnd_toStartOf="@+id/change22Button"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/change22Button"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="136dp"
+        android:background="@drawable/color_change"
         android:text="두번째 화면"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
+        app:layout_constraintStart_toEndOf="@+id/change21Button"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/change23Button"
-        android:layout_width="150dp"
+        android:layout_width="137dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:text="세번째 화면"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645" />
+        android:textColor="@color/black"
+        app:layout_constraintBaseline_toBaselineOf="@+id/change22Button"
+        app:layout_constraintLeft_toRightOf="@+id/change22Button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

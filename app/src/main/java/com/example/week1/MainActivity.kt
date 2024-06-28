@@ -9,17 +9,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+//import kotlinx.android.synthetic.main.activity_main.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
+    lateinit var profileAdapter: ProfileAdapter
+    val datas = mutableListOf<ProfileData>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        //var number: TextView = findViewById(R.id.number)
-        //var clickbutton: Button = findViewById(R.id.clickbutton)
-        //var editText: EditText = findViewById(R.id.editText)
-        //var checkButton: Button = findViewById(R.id.checkButton)
+        initRecycler()
+
         val change22Button: Button = findViewById(R.id.change22Button)
         val change23Button: Button = findViewById(R.id.change23Button)
         val number = 11.01
@@ -34,16 +38,27 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("number",number)
             startActivity(intent)
         }
-        //clickbutton.setOnClickListener { number.text = "2" }
-        //checkButton.setOnClickListener {
-            //val insertText: String = editText.text.toString()
-            //Toast.makeText(this, insertText, Toast.LENGTH_SHORT).show()
-        //}
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
 //            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 //            insets
 //        }
+    }
+    private fun initRecycler() {
+        profileAdapter = ProfileAdapter(this)
+        val recyclerView: RecyclerView = findViewById(R.id.rv_profile)
+        recyclerView.adapter = profileAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
+        datas.apply {
+            add(ProfileData(img = R.drawable.profile1, name = "mary", age = 24))
+            add(ProfileData(img = R.drawable.profile3, name = "jenny", age = 26))
+            add(ProfileData(img = R.drawable.profile2, name = "jhon", age = 27))
+            add(ProfileData(img = R.drawable.profile5, name = "ruby", age = 21))
+            add(ProfileData(img = R.drawable.profile4, name = "yuna", age = 23))
+
+            profileAdapter.datas = datas
+            profileAdapter.notifyDataSetChanged()
+        }
     }
 }
