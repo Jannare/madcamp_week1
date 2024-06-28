@@ -17,6 +17,17 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    defaultConfig {
+        // ...
+        multiDexEnabled = true
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    dataBinding {
+        enable = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
