@@ -9,7 +9,7 @@
         android:id="@+id/textView"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="두번째화면"
+        android:text="갤러리"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,26 +20,33 @@
 
     <Button
         android:id="@+id/change21Button"
-        android:layout_width="137dp"
+        android:layout_width="137sp"
         android:layout_height="wrap_content"
-        android:text="메인 화면"
-        android:background="@drawable/color_change"/>
+        android:text="연락처"
+        android:background="@drawable/color_change"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/change22Button" />
 
     <Button
         android:id="@+id/change22Button"
-        android:layout_width="138dp"
+        android:layout_width="138sp"
         android:layout_height="wrap_content"
-        android:text="두번째 화면"
-        app:layout_constraintLeft_toRightOf="@+id/change21Button"
+        android:text="갤러리"
         android:textColor="@color/black"
-        android:backgroundTint="@color/white"/>
+        android:backgroundTint="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/change21Button"
+        app:layout_constraintEnd_toStartOf="@+id/change23Button" />
 
     <Button
         android:id="@+id/change23Button"
-        android:layout_width="137dp"
+        android:layout_width="137sp"
         android:layout_height="wrap_content"
-        android:text="세번째 화면"
-        app:layout_constraintLeft_toRightOf="@+id/change22Button"
-        android:background="@drawable/color_change"/>
+        android:text="자유"
+        android:background="@drawable/color_change"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/change22Button"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

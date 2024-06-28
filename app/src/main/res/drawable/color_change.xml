@@ -8,8 +8,8 @@
     </item>
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="#E8C854"></solid>
-            <corners android:radius="10dp"></corners>
+            <solid android:color="#D8CEF6"></solid>
+            <corners android:radius="50dp"></corners>
         </shape>
     </item>
 </selector>

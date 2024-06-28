@@ -12,7 +12,10 @@
         android:id="@+id/img_rv_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@color/black" />
+        android:src="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/tv_rv_name"
