@@ -17,8 +17,7 @@ class MainActivity : AppCompatActivity() {
         //enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
 
-
-
+      
         initRecycler()
 
         val number = 11.01
@@ -43,19 +42,18 @@ class MainActivity : AppCompatActivity() {
         profileAdapter = ProfileAdapter(this)
         binding.rvProfile.adapter = profileAdapter
         binding.rvProfile.layoutManager = LinearLayoutManager(this)
+        binding.rvProfile.addItemDecoration(VerticalItemDecorator(20))
+        binding.rvProfile.addItemDecoration(HorizontalItemDecorator(10))
 
         datas.apply {
-            add(ProfileData(img = R.drawable.profile1, name = "mary", age = 24))
-            add(ProfileData(img = R.drawable.profile3, name = "jenny", age = 26))
-            add(ProfileData(img = R.drawable.profile2, name = "jhon", age = 27))
-            add(ProfileData(img = R.drawable.profile5, name = "ruby", age = 21))
-            add(ProfileData(img = R.drawable.profile4, name = "yuna", age = 23))
+            add(ProfileData(img = R.drawable.profile1, name = "Seowon", bd = "2002.10.30"))
+            add(ProfileData(img = R.drawable.profile3, name = "Suhwan", bd = "2000.04.24"))
+            add(ProfileData(img = R.drawable.profile2, name = "Hyunji", bd = "2002.02.07"))
+            add(ProfileData(img = R.drawable.profile5, name = "Gyeongsuk", bd = "2005.11.09"))
+            add(ProfileData(img = R.drawable.profile4, name = "Taeseok", bd = "2000.07.03"))
 
             profileAdapter.datas = datas
             profileAdapter.notifyDataSetChanged()
         }
-
     }
-
-
 }

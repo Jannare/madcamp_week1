@@ -1,6 +1,7 @@
 package com.example.week1
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 
 class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
     var datas = mutableListOf<ProfileData>()
@@ -21,13 +23,20 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
     }
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val txtName: TextView = itemView.findViewById(R.id.tv_rv_name)
-        private val txtAge: TextView = itemView.findViewById(R.id.tv_rv_age)
+        private val txtAge: TextView = itemView.findViewById(R.id.tv_rv_bd)
         private val imgProfile: ImageView = itemView.findViewById(R.id.img_rv_photo)
         fun bind(item: ProfileData) {
             txtName.text = item.name
-            txtAge.text = item.age.toString()
+            txtAge.text = item.bd.toString()
             Glide.with(itemView).load(item.img).into(imgProfile)
 
+            itemView.setOnClickListener {
+                val gson = Gson()
+                val profileDetailActivityIntent = Intent(context, ProfileDetailActivity::class.java).apply {
+                    putExtra("data", gson.toJson(item))
+                }
+                context.startActivity(profileDetailActivityIntent)
+            }
         }
     }
 }
