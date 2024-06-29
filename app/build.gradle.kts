@@ -7,26 +7,24 @@ android {
     namespace = "com.example.week1"
     compileSdk = 34
 
-    defaultConfig {
-        applicationId = "com.example.week1"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    defaultConfig {
-        // ...
-        multiDexEnabled = true
-    }
     buildFeatures {
         viewBinding = true
     }
     dataBinding {
         enable = true
     }
+
+    defaultConfig {
+        applicationId = "com.example.week1"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+        multiDexEnabled = true
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
 
     buildTypes {
         release {
