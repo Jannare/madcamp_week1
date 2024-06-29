@@ -18,6 +18,7 @@ class SecondActivity : AppCompatActivity() {
         binding1 =
             DataBindingUtil.setContentView(this, R.layout.activity_second) as ActivitySecondBinding
 
+
         initRecycler1()
 
         val change21Button: Button = findViewById(R.id.change21Button)

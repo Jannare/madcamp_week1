@@ -21,9 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="2"
-
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <TextView
@@ -33,7 +32,7 @@
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textColor="@color/black"
-        android:textSize="12sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/priceArea"
@@ -42,7 +41,7 @@
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

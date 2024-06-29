@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 //import kotlinx.android.synthetic.main.activity_main.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.week1.databinding.ActivityFolderBinding
 import com.example.week1.databinding.ActivityMainBinding
 import com.example.week1.databinding.ActivitySecondBinding
 
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         initRecycler()
 
 //        val change22Button: Button = findViewById(R.id.change22Button)
@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity() {
         val number = 11.01
 
         binding.change22Button.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra("number",number)
+            val intent = Intent(this, FolderActivity::class.java)
             startActivity(intent)
         }
+
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
             intent.putExtra("number",number)
