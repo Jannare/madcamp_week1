@@ -20,7 +20,6 @@ import com.example.week1.databinding.ActivitySecondBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
     lateinit var profileAdapter: ProfileAdapter
     val datas = mutableListOf<ProfileData>()
 
