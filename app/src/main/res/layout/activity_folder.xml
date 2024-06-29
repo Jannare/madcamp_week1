@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".FolderActivity">
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/change21Button"
@@ -39,14 +37,16 @@
             app:layout_constraintStart_toEndOf="@+id/change22Button"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageButton
-            android:id="@+id/folder1"
+        <Button
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:src="@drawable/folder1"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@+id/change22Button"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:id="@+id/folder1"
+            android:padding="0dp"
+            android:focusableInTouchMode="true"
+            android:background="@drawable/folder1"
+            app:layout_constraintTop_toBottomOf="@id/change23Button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/titleArea1"
@@ -54,10 +54,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="2"
-            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/folder1"
+            android:text="Amy"
+            android:textColor="@color/black"
             android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
             android:textStyle="bold" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

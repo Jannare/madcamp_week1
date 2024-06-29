@@ -5,18 +5,30 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.week1.databinding.ActivityFolderBinding
+import com.example.week1.databinding.ActivityMainBinding
 
-class FolderActivity : AppCompatActivity() {
+class FdActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityFolderBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_folder)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_folder) as ActivityFolderBinding
 
-        val change22Button: Button = findViewById(R.id.change22Button)
+        super.onCreate(savedInstanceState)
+
+        val change23Button: Button = findViewById(R.id.change23Button)
         val change21Button: Button = findViewById(R.id.change21Button)
         var number = 33.03
 
-        change22Button.setOnClickListener {
+        binding.folder1.setOnClickListener {
             val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
+        }
+
+        change23Button.setOnClickListener {
+            val intent = Intent(this, ThirdActivity::class.java)
             intent.putExtra("number",number)
             startActivity(intent)
         }
