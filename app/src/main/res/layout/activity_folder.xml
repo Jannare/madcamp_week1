@@ -37,11 +37,31 @@
             app:layout_constraintStart_toEndOf="@+id/change22Button"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_pics"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/change22Button"
-            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:id="@+id/folder1"
+            android:padding="0dp"
+            android:focusableInTouchMode="true"
+            android:background="@drawable/folder1"
+            app:layout_constraintTop_toBottomOf="@id/change23Button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/titleArea1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            app:layout_constraintTop_toBottomOf="@id/folder1"
+            android:text="Amy"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,21 +2,10 @@ package com.example.week1
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.*
-import androidx.recyclerview.widget.GridLayoutManager
-//import kotlinx.android.synthetic.main.activity_main.*
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.databinding.ActivityMainBinding
-import com.example.week1.databinding.ActivitySecondBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -28,15 +17,16 @@ class MainActivity : AppCompatActivity() {
         //enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
 
+      
         initRecycler()
 
         val number = 11.01
 
         binding.change22Button.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra("number",number)
+            val intent = Intent(this, FdActivity::class.java)
             startActivity(intent)
         }
+
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
             intent.putExtra("number",number)
