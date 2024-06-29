@@ -30,12 +30,12 @@
         app:layout_constraintTop_toTopOf="@id/img_rv_photo" />
 
     <TextView
-        android:id="@+id/tv_rv_age"
+        android:id="@+id/tv_rv_bd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="전화번호"
+        android:text="생일"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/img_rv_photo"

@@ -63,8 +63,8 @@ class SecondActivity : AppCompatActivity() {
 //        itemList.add(RecyclerModel(R.drawable.item_lv_02, "마리떼 프랑소와 저버", "CLASSIC LOGO WOOL ECO BAG blue", "49,000원"))
 
         val adapter = RecyclerHorizontalAdapter(itemList)
-        binding1.recyclerview.adapter = adapter
-        binding1.recyclerview.layoutManager = GridLayoutManager(this, 2)
+        binding1.rvPics.adapter = adapter
+        binding1.rvPics.layoutManager = GridLayoutManager(this, 2)
 
         adapter.setItemClickListener(object: RecyclerHorizontalAdapter.onItemClickListener {
 
