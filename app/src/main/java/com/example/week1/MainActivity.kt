@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         if (query != null) {
             val filteredList = ArrayList<ProfileData>()
             for (i in datas) {
-                if (i.name.lowercase(Locale.ROOT).contains(query) || i.bd.lowercase(Locale.ROOT).contains(query)) {
+                if (i.name.lowercase(Locale.ROOT).contains(query.lowercase()) || i.bd.lowercase(Locale.ROOT).contains(query.lowercase())) {
                     filteredList.add(i)
                 }
             }
