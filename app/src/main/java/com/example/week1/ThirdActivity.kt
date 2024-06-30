@@ -16,7 +16,7 @@ class ThirdActivity : AppCompatActivity() {
         var number = 33.03
 
         change22Button.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
+            val intent = Intent(this, FdActivity::class.java)
             intent.putExtra("number",number)
             startActivity(intent)
         }

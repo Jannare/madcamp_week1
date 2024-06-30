@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.week1.databinding.ActivityFolderBinding
-import com.example.week1.databinding.ActivityMainBinding
 
 class FdActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFolderBinding
@@ -23,7 +22,7 @@ class FdActivity : AppCompatActivity() {
         var number = 33.03
 
         binding.folder1.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
+            val intent = Intent(this, Galleryactivity::class.java)
             startActivity(intent)
         }
 

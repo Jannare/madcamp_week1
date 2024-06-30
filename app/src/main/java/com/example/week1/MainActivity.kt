@@ -7,6 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.week1.databinding.ActivityMainBinding
 
+
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var profileAdapter: ProfileAdapter
@@ -17,19 +19,28 @@ class MainActivity : AppCompatActivity() {
         //enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
 
-      
+
         initRecycler()
 
         val number = 11.01
 
         binding.change22Button.setOnClickListener {
             val intent = Intent(this, FdActivity::class.java)
+            fun main() {
+                println("엄창용 바보0")
+            }
+            main()
             startActivity(intent)
+
         }
 
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
             intent.putExtra("number",number)
+            fun main() {
+                println("엄창용 바보1")
+            }
+            main()
             startActivity(intent)
         }
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
