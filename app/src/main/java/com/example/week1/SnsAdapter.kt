@@ -50,14 +50,5 @@ class SnsAdapter(private val context: Context) : RecyclerView.Adapter<SnsAdapter
                 }
             }
         }
-
-
     }
 }
-//        itemView.setOnClickListener {
-//            val gson = Gson()
-//            val profileDetailActivityIntent = Intent(context, ProfileDetailActivity::class.java).apply {
-//                putExtra("data", gson.toJson(item))
-//            }
-//            context.startActivity(profileDetailActivityIntent)
-//        }
