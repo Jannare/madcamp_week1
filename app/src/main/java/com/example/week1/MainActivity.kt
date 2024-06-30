@@ -2,7 +2,7 @@ package com.example.week1
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,7 +13,7 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    //이렇게 binding 해줬기 때문에 굳이 recyclerView랑 searchView 안 불러도 될 것 같은데 만약에 그걸 var로 설정해서 수정을 해야 하면 유투브처럼 하기.
+    //이렇게 binding 해줬지만, 수정이 필요해져서 var 선언
     private lateinit var rrvv: RecyclerView
     private lateinit var ssvv: SearchView
     private lateinit var profileAdapter: ProfileAdapter
@@ -25,19 +25,18 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
 
         rrvv = binding.rvProfile
-        ssvv = findViewById(R.id.sv_profile)
+        ssvv = binding.svProfile
 
         rrvv.setHasFixedSize(true)
         rrvv.layoutManager = LinearLayoutManager(this)
+        rrvv.addItemDecoration(VerticalItemDecorator(20))
+        rrvv.addItemDecoration(HorizontalItemDecorator(10))
 
-        addDataToList()
+        addDataToList() //initrecycler에 있던 부분에서 data 관련된 것만 빼버림.
 
         profileAdapter = ProfileAdapter(this)
         profileAdapter.datas=datas
         rrvv.adapter = profileAdapter
-
-        // rrvv.addItemDecoration(VerticalItemDecorator(20))
-        // rrvv.addItemDecoration(HorizontalItemDecorator(10))
 
         val number = 11.01
 
@@ -77,9 +76,9 @@ class MainActivity : AppCompatActivity() {
             }
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
-            } else {
-                profileAdapter.datas = filteredList
-                profileAdapter.notifyDataSetChanged()
+            }
+            else {
+                profileAdapter.setFilteredList(filteredList)
             }
         }
     }
