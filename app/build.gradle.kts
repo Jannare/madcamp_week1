@@ -9,6 +9,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
     dataBinding {
         enable = true
@@ -54,8 +55,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.google.code.gson:gson:2.8.8")
-
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 }
