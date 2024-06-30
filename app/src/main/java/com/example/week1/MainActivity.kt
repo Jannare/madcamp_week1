@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.databinding.ActivityMainBinding
 import java.util.Locale
 
+
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     //이렇게 binding 해줬지만, 수정이 필요해져서 var 선언
@@ -42,12 +44,21 @@ class MainActivity : AppCompatActivity() {
 
         binding.change22Button.setOnClickListener {
             val intent = Intent(this, FdActivity::class.java)
+            fun main() {
+                println("엄창용 바보0")
+            }
+            main()
             startActivity(intent)
+
         }
 
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
             intent.putExtra("number",number)
+            fun main() {
+                println("엄창용 바보1")
+            }
+            main()
             startActivity(intent)
         }
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
