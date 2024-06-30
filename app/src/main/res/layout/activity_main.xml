@@ -18,8 +18,7 @@
             android:backgroundTint="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/change22Button"
-            />
+            app:layout_constraintRight_toLeftOf="@+id/change22Button" />
 
         <Button
             android:id="@+id/change22Button"
@@ -39,20 +38,46 @@
             android:background="@drawable/color_change"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/change22Button"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcv_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/change21Button">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/sv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:queryHint="검색하십쇼"
+                app:queryBackground="@color/transparent"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:iconifiedByDefault="false"
+                app:layout_constraintTop_toBottomOf="@id/change21Button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/rv_profile"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             tools:listitem="@layout/item_recycler"
-            app:layout_constraintTop_toBottomOf="@id/change21Button"
+            app:layout_constraintTop_toBottomOf="@id/mcv_profile"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingBottom="150dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

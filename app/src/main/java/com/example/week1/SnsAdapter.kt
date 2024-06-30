@@ -50,8 +50,6 @@ class SnsAdapter(private val context: Context) : RecyclerView.Adapter<SnsAdapter
                 }
             }
         }
-
-
     }
 }
 //        itemView.setOnClickListener {
