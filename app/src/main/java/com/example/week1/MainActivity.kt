@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ssvv: SearchView
     private lateinit var profileAdapter: ProfileAdapter
     private var datas = mutableListOf<ProfileData>()
+
+    private lateinit var addActivityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,23 +46,41 @@ class MainActivity : AppCompatActivity() {
 
         val number = 11.01
 
+        addActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let {
+                    val name = it.getStringExtra("name") ?: return@let
+                    //val number = it.getStringExtra("number") ?: return@let
+                    val bd = it.getStringExtra("bd") ?: return@let
+                    //val insta = it.getStringExtra("insta") ?: return@let
+                    datas.add(ProfileData(name = name, bd = bd, img = R.drawable.k1))
+                    //그리고 Profile안의 SNSData에도 접근해서 고칠 수 있게
+                    //img는 버튼에서 받아온 걸로 되게.
+                    profileAdapter.setFilteredList(datas)
+                }
+            }
+        }
+
+        binding.createProfileButton.setOnClickListener {
+            val intent = Intent(this, AddActivity::class.java)
+            addActivityResultLauncher.launch(intent)
+        }
+
+//        binding.createProfileButton.setOnClickListener {
+//            val intent = Intent(this, AddActivity::class.java)
+//            startActivity(intent)
+//        }
+
         binding.change22Button.setOnClickListener {
             val intent = Intent(this, FdActivity::class.java)
-            fun main() {
-                println("엄창용 바보0")
-            }
-            main()
+            println("엄창용 바보0")
             startActivity(intent)
-
         }
 
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
             intent.putExtra("number",number)
-            fun main() {
-                println("엄창용 바보1")
-            }
-            main()
+            println("엄창용 바보1")
             startActivity(intent)
         }
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -81,9 +103,8 @@ class MainActivity : AppCompatActivity() {
         if (query != null) {
             val filteredList = ArrayList<ProfileData>()
             for (i in datas) {
-                if (i.name.lowercase(Locale.ROOT).contains(query.lowercase()) || i.bd.lowercase(Locale.ROOT).contains(query.lowercase())) {
-                    filteredList.add(i)
-                }
+                if (i.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)) || i.bd.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT))) {
+                    filteredList.add(i) }
             }
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
@@ -100,8 +121,11 @@ class MainActivity : AppCompatActivity() {
         datas.add(ProfileData(img = R.drawable.profile2, name = "Hyunji", bd = "2002.02.07"))
         datas.add(ProfileData(img = R.drawable.profile5, name = "Gyeongsuk", bd = "2005.11.09"))
         datas.add(ProfileData(img = R.drawable.profile4, name = "Taeseok", bd = "2000.07.03"))
-        datas.add(ProfileData(img = R.drawable.profile1, name = "Seowon", bd = "2002.10.30"))
-        datas.add(ProfileData(img = R.drawable.profile3, name = "Suhwan", bd = "2000.04.24"))
+        datas.add(ProfileData(img = R.drawable.profile1, name = "신서원", bd = "2002.10.30"))
+        datas.add(ProfileData(img = R.drawable.profile3, name = "김수환", bd = "2000.04.24"))
         datas.add(ProfileData(img = R.drawable.profile2, name = "Hyunji", bd = "2002.02.07"))
     }
+
+
+
 }
