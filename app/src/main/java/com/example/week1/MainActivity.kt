@@ -2,15 +2,14 @@ package com.example.week1
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.databinding.ActivityMainBinding
 import java.util.Locale
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,10 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.change22Button.setOnClickListener {
             val intent = Intent(this, FdActivity::class.java)
-            fun main() {
-                println("엄창용 바보0")
-            }
-            main()
             startActivity(intent)
 
         }
@@ -55,10 +50,6 @@ class MainActivity : AppCompatActivity() {
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
             intent.putExtra("number",number)
-            fun main() {
-                println("엄창용 바보1")
-            }
-            main()
             startActivity(intent)
         }
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
