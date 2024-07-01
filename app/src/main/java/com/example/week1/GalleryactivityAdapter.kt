@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -42,6 +43,7 @@ class GalleryactivityAdapter() : RecyclerView.Adapter<GalleryactivityAdapter.Vie
     }
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val TestGalleryAdapter: ImageView= view.findViewById(R.id.galleryView)
+        private var PhotoD = itemView.findViewById<TextView>(R.id.photoDate)
     }
 
 

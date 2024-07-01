@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -217,6 +218,24 @@ class Galleryactivity : AppCompatActivity() {
         return fileName
 
     }
+    //사진에서 날짜를 가져오는 함수
+    fun getImageDate(imageUri: Uri): String? {
+        val projection = arrayOf(MediaStore.Images.Media.DATE_TAKEN)
+        val cursor: Cursor? = contentResolver.query(imageUri, projection, null, null, null)
+        var date: String? = null
+
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val dateTakenColumnIndex = it.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN)
+                if (dateTakenColumnIndex != -1) {
+                    val dateTakenMillis = it.getLong(dateTakenColumnIndex)
+                    date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateTakenMillis)
+                }
+            }
+        }
+        return date
+    }
+
 
     // 갤러리 취득
 //    fun getAlbum() {
@@ -248,11 +267,15 @@ class Galleryactivity : AppCompatActivity() {
                     val imageUri = it.data!!.clipData!!.getItemAt(index).uri
                     // 이미지 add
                     imageList.add(imageUri)
-
+                    val date = getImageDate(imageUri)
+                    Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
                 }
+
             }else { //single image
                 val imageUri = it.data!!.data
                 imageList.add(imageUri!!)
+                val date = getImageDate(imageUri)
+                Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
             }
 
             //적용
