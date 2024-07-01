@@ -22,7 +22,8 @@
 
         <LinearLayout
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
             <Button
                 android:id="@+id/change21Button"
                 android:layout_width="match_parent"
