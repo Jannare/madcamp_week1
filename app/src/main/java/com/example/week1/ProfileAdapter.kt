@@ -49,7 +49,7 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
         }
     }
 
-    fun setFilteredList(datam: ArrayList<ProfileData>) {
+    fun setFilteredList(datam: MutableList<ProfileData>) {
         this.datas = datam
         notifyDataSetChanged()
     }
