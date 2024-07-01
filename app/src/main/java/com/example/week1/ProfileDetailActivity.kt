@@ -17,7 +17,7 @@ class ProfileDetailActivity : AppCompatActivity() {
     private lateinit var binding1: ItemRvSnsBinding
 
     lateinit var snsAdapter: SnsAdapter // 추가함
-    val datam = mutableListOf<SnsData>() // 추가함
+    val datam = mutableListOf<ProfileData.SnsData>() // 추가함
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,39 +32,18 @@ class ProfileDetailActivity : AppCompatActivity() {
         binding.tvName.text = datas.name
         binding.tvBirthday.text = datas.bd
 
-        initRecycler()
+        initRecycler(datas)
     }
 
-    private fun initRecycler() {
-        snsAdapter = SnsAdapter(this) // 변경된 이름
-        binding.rvSns.adapter = snsAdapter // 변경된 이름
+    private fun initRecycler(i: ProfileData) {
+        snsAdapter = SnsAdapter(this)
+        binding.rvSns.adapter = snsAdapter
 
-        when (datas.name) { //각 프로필에 따라 다른 데이터 설정
-            "Seowon" -> {
-                datam.apply {
-                    clear()
-                    add(SnsData(imgIcon = R.drawable.callicon, num = "010-2923-4581"))
-                    add(SnsData(imgIcon = R.drawable.msgicon, num = "010-2923-4581"))
-                    add(SnsData(imgIcon = R.drawable.instaicon, num = "shinseon_1030"))
-                }
-            }
-            "Suhwan" -> {
-                datam.apply {
-                    clear()
-                    add(SnsData(imgIcon = R.drawable.callicon, num = "010-6405-9334"))
-                    add(SnsData(imgIcon = R.drawable.msgicon, num = "010-6405-9334"))
-                    add(SnsData(imgIcon = R.drawable.instaicon, num = "k._swan"))
-                }
-            }
-            // 다른 프로필들에 대해서도 필요에 맞게
-            else -> {
-                datam.apply {
-                    clear()
-                    add(SnsData(imgIcon = R.drawable.callicon, num = "010-6468-5953"))
-                    add(SnsData(imgIcon = R.drawable.msgicon, num = "010-6468-5953"))
-                    add(SnsData(imgIcon = R.drawable.instaicon, num = "abbyycha_"))
-                }
-            }
+        datam.apply {  //각 프로필에 따라 다른 데이터 설정
+            clear()
+            add(ProfileData.SnsData(imgIcon = R.drawable.callicon, number = i.snsData.number, insta = i.snsData.insta))
+            add(ProfileData.SnsData(imgIcon = R.drawable.msgicon, number = i.snsData.number, insta = i.snsData.insta))
+            add(ProfileData.SnsData(imgIcon = R.drawable.instaicon, number = i.snsData.insta, insta = i.snsData.insta))
         }
         snsAdapter.datas = datam
         snsAdapter.notifyDataSetChanged()

@@ -50,13 +50,14 @@ class MainActivity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 result.data?.let {
                     val name = it.getStringExtra("name") ?: return@let
-                    //val number = it.getStringExtra("number") ?: return@let
+                    val number = it.getStringExtra("number") ?: return@let
                     val bd = it.getStringExtra("bd") ?: return@let
-                    //val insta = it.getStringExtra("insta") ?: return@let
-                    datas.add(ProfileData(name = name, bd = bd, img = R.drawable.k1))
-                    //그리고 Profile안의 SNSData에도 접근해서 고칠 수 있게
-                    //img는 버튼에서 받아온 걸로 되게.
-                    profileAdapter.setFilteredList(datas)
+                    val imgicon = R.drawable.msgicon //일단은 이걸로 해놓기
+                    val insta = it.getStringExtra("insta") ?: return@let
+                    val snsData = ProfileData.SnsData(imgicon,number,insta)
+                    datas.add(ProfileData(name = name, bd = bd, img = R.drawable.k1, snsData = snsData))
+                    //그리고 Profile안의 SNSData에도 접근해서 고칠 수 있게 바꿔야겠당
+                    profileAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -65,11 +66,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddActivity::class.java)
             addActivityResultLauncher.launch(intent)
         }
-
-//        binding.createProfileButton.setOnClickListener {
-//            val intent = Intent(this, AddActivity::class.java)
-//            startActivity(intent)
-//        }
 
         binding.change22Button.setOnClickListener {
             val intent = Intent(this, FdActivity::class.java)
@@ -116,16 +112,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addDataToList() {
-        datas.add(ProfileData(img = R.drawable.profile1, name = "Seowon", bd = "2002.10.30"))
-        datas.add(ProfileData(img = R.drawable.profile3, name = "Suhwan", bd = "2000.04.24"))
-        datas.add(ProfileData(img = R.drawable.profile2, name = "Hyunji", bd = "2002.02.07"))
-        datas.add(ProfileData(img = R.drawable.profile5, name = "Gyeongsuk", bd = "2005.11.09"))
-        datas.add(ProfileData(img = R.drawable.profile4, name = "Taeseok", bd = "2000.07.03"))
-        datas.add(ProfileData(img = R.drawable.profile1, name = "신서원", bd = "2002.10.30"))
-        datas.add(ProfileData(img = R.drawable.profile3, name = "김수환", bd = "2000.04.24"))
-        datas.add(ProfileData(img = R.drawable.profile2, name = "Hyunji", bd = "2002.02.07"))
+        datas.add(ProfileData(img = R.drawable.profile1, name = "Seowon", bd = "2002.10.30", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-2923-4581", insta= "shinseon_1030")))
+        datas.add(ProfileData(img = R.drawable.profile3, name = "Suhwan", bd = "2000.04.24", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6289-4581", insta= "k.__swan")))
+        datas.add(ProfileData(img = R.drawable.profile2, name = "Hyunji", bd = "2002.02.07", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6468-5953", insta= "abbyycha_")))
+        datas.add(ProfileData(img = R.drawable.profile5, name = "Gyeongsuk", bd = "2005.11.09", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4082-8427", insta= "s.g.seogi")))
+        datas.add(ProfileData(img = R.drawable.profile4, name = "Pukook", bd = "2000.07.03", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6472-8727", insta= "yeon_u_68")))
+        datas.add(ProfileData(img = R.drawable.profile1, name = "신서원", bd = "2002.10.30", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-2923-4581", insta= "s1ngs0ng30")))
+        datas.add(ProfileData(img = R.drawable.profile3, name = "김수환", bd = "2000.04.24", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6289-4581", insta= "k.__swan")))
+        datas.add(ProfileData(img = R.drawable.profile2, name = "Sieun", bd = "2003.04.06", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4601-8412", insta= "ruozey")))
     }
-
-
-
 }
