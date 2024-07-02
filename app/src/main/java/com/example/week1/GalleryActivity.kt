@@ -37,7 +37,7 @@ class GalleryActivity : AppCompatActivity() {
     private var datap = mutableListOf<GalleryData>()
     private var intedata: MutableList<GalleryData.InteGalleryData> = mutableListOf()
     private var saveddata: MutableList<Fddata.InteGalleryData> = mutableListOf()
-
+    var isDataParsed = false
 //    private var imageList: ArrayList<Uri> = ArrayList()
 
     // 사진 촬영에 필요한 변수, storage 권한 처리...
@@ -61,51 +61,51 @@ class GalleryActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("galleryData2", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        if (datap != null) {
+        if(datap != null){
+            saveddata = mutableListOf()
             for (i in datap.indices) {
-                saveddata.add(
-                    Fddata.InteGalleryData(
-                        img = datap[i].img.toString(),
-                        date = datap[i].date
-                    )
-                )
+                saveddata.add(Fddata.InteGalleryData(img = datap[i].img.toString(), date = datap[i].date))
             }
             editor.putString("gsonData2", gson.toJson(saveddata))
             editor.apply()
         }
     }
 
+    private fun loadData() {
+        val sharedPreferences = getSharedPreferences("galleryData2", MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("gsonData2", null)
+        datap = mutableListOf()
+        if (json != null) {
+            val type =
+                object : TypeToken<MutableList<GalleryData.InteGalleryData>>() {}.type
+            val intedata: MutableList<GalleryData.InteGalleryData> =
+                gson.fromJson(json, type)
+            val imgList: List<String> = intedata.map { it.img }
+            Log.d("GalleryActivity", "Extracted imgList: $imgList")
+            val dateList: List<String> = intedata.map { it.date }
+            Log.d("GalleryActivity", "Extracted date: $dateList")
+            datap = mutableListOf()
+            for (i in imgList.indices) {
+                datap.add(GalleryData(img = (Uri.parse(imgList[i])), date = dateList[i]))
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
-        //Binding
         binding1 = PhototimeBinding.inflate(layoutInflater) //카메라 촬영용
         binding = ActivityGalleryBinding.inflate(layoutInflater) // rv용
         setContentView(binding.root)
+
+
 
         galleryAdapter = GalleryActivityAdapter(this)
         binding.recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerview.adapter = galleryAdapter
 
 
-        fun loadData() {
-            val sharedPreferences = getSharedPreferences("galleryData2", MODE_PRIVATE)
-            val gson = Gson()
-            val json = sharedPreferences.getString("gsonData2", null)
-            if (json != null) {
-                val type = object : TypeToken<MutableList<GalleryData.InteGalleryData>>() {}.type
-                val intedata: MutableList<GalleryData.InteGalleryData> = gson.fromJson(json, type)
-                val imgList: List<String> = intedata.map { it.img}
-                Log.d("GalleryActivity", "Extracted imgList: $imgList")
-                val dateList: List<String> = intedata.map { it.date }
-                Log.d("GalleryActivity", "Extracted date: $dateList")
-                for (i in imgList.indices) {
-                    datap.add(GalleryData(img = (Uri.parse(imgList[i])), date = dateList[i]))
-                }
-            }
-        }
-        loadData() // 데이터 불러오기
+
 
 
         val img = intent.getStringExtra("PLEASE5")
@@ -118,6 +118,7 @@ class GalleryActivity : AppCompatActivity() {
             galleryAdapter.notifyDataSetChanged()
 
         }
+
         val img1 = intent.getStringExtra("PLEASE1")
         val date1 = intent.getStringExtra("PLEASED1")
         Log.d("GalleryActivity", "Intent1 received: $img1, $date1")
@@ -183,9 +184,9 @@ class GalleryActivity : AppCompatActivity() {
 
 
         //Adapter와 데이터 연결
-//        galleryAdapter.datap = datap
-        galleryAdapter.datap = datap
 
+        loadData()
+        galleryAdapter.datap = datap
         //버튼 이벤트
         binding.galleryBtn.setOnClickListener {
 

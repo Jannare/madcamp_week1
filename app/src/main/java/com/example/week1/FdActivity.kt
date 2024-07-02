@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.week1.databinding.ActivityFolderBinding
 import com.example.week1.databinding.PhototimeBinding
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -52,24 +51,6 @@ class FdActivity : AppCompatActivity() {
     val camera_code = 98
     val storage_code = 99
 
-    override fun onPause() {
-        super.onPause()
-        saveData()
-    }
-
-    private fun saveData() {
-        val sharedPreferences = getSharedPreferences("galleryData2", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        if(datap != null){
-            for (i in datap.indices) {
-                saveddata.add(Fddata.InteGalleryData(img = datap[i].img.toString(), date = datap[i].date))
-            }
-            editor.putString("gsonData2", gson.toJson(saveddata))
-            editor.apply()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         fun addDataToList() {
             dataf.add(Fddata(Folderpic = R.drawable.profile1, date = "모든 추억" ))
@@ -82,6 +63,7 @@ class FdActivity : AppCompatActivity() {
             dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "3월" ))
         }
         addDataToList()
+        datap = mutableListOf()
 
         super.onCreate(savedInstanceState)
         binding = ActivityFolderBinding.inflate(layoutInflater)
@@ -92,24 +74,30 @@ class FdActivity : AppCompatActivity() {
         FdActivityAdapter.dataf = dataf
         binding.FdRecyclerview.adapter = FdActivityAdapter
         binding.FdRecyclerview.layoutManager = GridLayoutManager(this,2,GridLayoutManager.HORIZONTAL, false)
+        var isDataParsed = false
 
 
-        fun loadData() {
-            val sharedPreferences = getSharedPreferences("galleryData2", MODE_PRIVATE)
-            val gson = Gson()
-            val json = sharedPreferences.getString("gsonData2", null)
-            if (json != null) {
-                val type = object : TypeToken<MutableList<GalleryData.InteGalleryData>>() {}.type
-                val intedata: MutableList<GalleryData.InteGalleryData> = gson.fromJson(json, type)
-                val imgList: List<String> = intedata.map { it.img}
-                Log.d("GalleryActivity", "Extracted imgList: $imgList")
-                val dateList: List<String> = intedata.map { it.date }
-                Log.d("GalleryActivity", "Extracted date: $dateList")
-                for (i in imgList.indices) {
-                    datap.add(GalleryData(img = (Uri.parse(imgList[i])), date = dateList[i]))
-                }
-            }
-        }
+//        fun loadData() {
+//            val sharedPreferences = getSharedPreferences("galleryData2", MODE_PRIVATE)
+//            val gson = Gson()
+//            val json = sharedPreferences.getString("gsonData2", null)
+//            if (!isDataParsed) {
+//                if (json != null) {
+//                    val type =
+//                        object : TypeToken<MutableList<GalleryData.InteGalleryData>>() {}.type
+//                    val intedata: MutableList<GalleryData.InteGalleryData> =
+//                        gson.fromJson(json, type)
+//                    val imgList: List<String> = intedata.map { it.img }
+//                    Log.d("GalleryActivity", "Extracted imgList: $imgList")
+//                    val dateList: List<String> = intedata.map { it.date }
+//                    Log.d("GalleryActivity", "Extracted date: $dateList")
+//                    for (i in imgList.indices) {
+//                        datap.add(GalleryData(img = (Uri.parse(imgList[i])), date = dateList[i]))
+//                    }
+//                    isDataParsed = true
+//                }
+//            }
+//        }
 
 
 
@@ -119,7 +107,7 @@ class FdActivity : AppCompatActivity() {
             val intent = Intent(this, ThirdActivity::class.java)
             startActivity(intent)
         }
-        loadData() // 데이터 불러오기
+//        loadData() // 데이터 불러오기
         binding.change21Button.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
