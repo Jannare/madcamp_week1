@@ -30,14 +30,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
+        binding.createProfileButton.setBackgroundResource(R.drawable.plus)
 
         rrvv = binding.rvProfile
         ssvv = binding.svProfile
 
         rrvv.setHasFixedSize(true)
         rrvv.layoutManager = LinearLayoutManager(this)
-        rrvv.addItemDecoration(VerticalItemDecorator(20))
-        rrvv.addItemDecoration(HorizontalItemDecorator(10))
 
         addDataToList() //initrecycler에 있던 부분에서 data 관련된 것만 빼버림.
 

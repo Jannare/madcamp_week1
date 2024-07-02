@@ -51,6 +51,8 @@ class FdActivity : AppCompatActivity() {
         binding = ActivityFolderBinding.inflate(layoutInflater)
         binding1 = PhototimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.camBtn.setBackgroundResource(R.drawable.cam)
+        binding.galleryBtn.setBackgroundResource(R.drawable.gal)
 
         FdActivityAdapter = FdActivityAdapter(this)
         FdActivityAdapter.dataf = dataf
@@ -237,7 +239,7 @@ class FdActivity : AppCompatActivity() {
                 Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
             }
             //적용
-            GalleryAdapter.notifyDataSetChanged()
+            galleryAdapter.notifyDataSetChanged()
         }
     }
 

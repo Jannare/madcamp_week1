@@ -30,7 +30,7 @@
             android:id="@+id/change23Button"
             android:layout_width="137sp"
             android:layout_height="wrap_content"
-            android:text="자유"
+            android:text="편지"
             android:background="@drawable/color_change"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/change22Button"
