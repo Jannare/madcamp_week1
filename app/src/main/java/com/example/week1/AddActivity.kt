@@ -1,12 +1,12 @@
 package com.example.week1
 
 import android.Manifest
-import android.R
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -41,13 +41,13 @@ class AddActivity : AppCompatActivity() {
     private lateinit var edtBd: EditText
     private lateinit var edtInsta: EditText
     private lateinit var btnEditImage: ImageButton
-    private lateinit var btnSubmit: Button
+    private lateinit var btnSubmit: ImageButton
 
     lateinit var name: String
     lateinit var number: String
     lateinit var bd: String
     lateinit var insta: String
-    lateinit var photo: Uri
+    var photo: Uri = Uri.parse(R.drawable.cake.toString())
 
     private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result ->
@@ -77,6 +77,8 @@ class AddActivity : AppCompatActivity() {
         edtInsta = binding.edtInsta
         btnEditImage = binding.btnEdtImage
         btnSubmit = binding.btnSubmit
+        binding.btnEdtImage.setBackgroundResource(R.drawable.cake)
+        binding.btnSubmit.setBackgroundResource(R.drawable.savee)
 
         btnEditImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -89,9 +91,9 @@ class AddActivity : AppCompatActivity() {
             number = edtNumber.text.toString()
             bd = edtBd.text.toString()
             insta = edtInsta.text.toString()
+            val savedImageUri = saveImageToInternalStorage(uriToBitmap(photo))
 
-            if (name.isNotEmpty() && number.isNotEmpty() && bd.isNotEmpty()) {
-                val savedImageUri = saveImageToInternalStorage(uriToBitmap(photo))
+            if (name.isNotEmpty() && number.isNotEmpty() && bd.isNotEmpty() && insta.isNotEmpty()) {
                 if (savedImageUri != null) {
                     val resultIntent = Intent().apply {
                         putExtra("name", name)
@@ -100,13 +102,14 @@ class AddActivity : AppCompatActivity() {
                         putExtra("photo", savedImageUri.toString()) // 저장된 이미지 URI
                         putExtra("insta", insta)
                     }
-                    setResult(Activity.RESULT_OK, resultIntent)
+                    setResult(RESULT_OK, resultIntent)
                     finish()
                 } else {
-                    Toast.makeText(this, "이미지 저장 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please add a photo :)", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(this, "Invalid format, Please note the example", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "Fill in all the blank :)", Toast.LENGTH_SHORT).show()
             }
         }
     }

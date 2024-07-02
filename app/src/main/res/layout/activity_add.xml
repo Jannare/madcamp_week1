@@ -26,7 +26,7 @@
             android:text="Add or Change\nPictures"
             android:textAlignment="center"
             android:textSize="20dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -38,6 +38,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_edt_image"
             app:layout_constraintWidth_percent="0.6">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="생일을 챙겨줄 새로운 인연을 저장해요"
+                android:textSize="18sp">
+
+            </TextView>
 
             <EditText
                 android:id="@+id/edt_name"
@@ -75,12 +83,16 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="Save"
+            android:layout_height="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.12" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         }
         //enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
+        binding.createProfileButton.setBackgroundResource(R.drawable.plus)
 
 
         rrvv = binding.rvProfile
@@ -114,8 +115,6 @@ class MainActivity : AppCompatActivity() {
 
         rrvv.setHasFixedSize(true)
         rrvv.layoutManager = LinearLayoutManager(this)
-        rrvv.addItemDecoration(VerticalItemDecorator(20))
-        rrvv.addItemDecoration(HorizontalItemDecorator(10))
 
         loadData() // 데이터 불러오기
 

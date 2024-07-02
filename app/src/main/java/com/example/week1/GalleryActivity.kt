@@ -97,6 +97,8 @@ class GalleryActivity : AppCompatActivity() {
         binding1 = PhototimeBinding.inflate(layoutInflater) //카메라 촬영용
         binding = ActivityGalleryBinding.inflate(layoutInflater) // rv용
         setContentView(binding.root)
+        binding.camBtn.setBackgroundResource(R.drawable.cam)
+        binding.galleryBtn.setBackgroundResource(R.drawable.gal)
 
 
 
