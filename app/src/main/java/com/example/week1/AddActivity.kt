@@ -109,7 +109,6 @@ class AddActivity : AppCompatActivity() {
                 Toast.makeText(this, "Invalid format, Please note the example", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun onRequestPermissionsResult(
