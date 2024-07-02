@@ -15,7 +15,7 @@ import com.google.gson.Gson
 
 class SnsAdapter(private val context: Context) : RecyclerView.Adapter<SnsAdapter.ViewHolder>() {
 
-    var datas = mutableListOf<SnsData>()
+    var datas = mutableListOf<ProfileData.SnsData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_rv_sns,parent,false)
         return ViewHolder(view)
@@ -31,8 +31,8 @@ class SnsAdapter(private val context: Context) : RecyclerView.Adapter<SnsAdapter
         private val txtNum: TextView = itemView.findViewById(R.id.tv_rv_num)
         private val imgSNS: ImageView = itemView.findViewById(R.id.img_rv_sns)
 
-        fun bind(item: SnsData) {
-            txtNum.text = item.num
+        fun bind(item: ProfileData.SnsData) {
+            txtNum.text = item.number //number로 받기 때문에, 뒤에도 number로 instaID를 넘겨주면 된다 !!
             Glide.with(itemView).load(item.imgIcon).into(imgSNS)
 
             itemView.setOnClickListener {
