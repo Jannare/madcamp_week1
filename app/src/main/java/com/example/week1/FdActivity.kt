@@ -236,14 +236,11 @@ class FdActivity : AppCompatActivity() {
                 datap.add(GalleryData(img = imageUri, date = date.toString()))
                 Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
             }
-            galleryAdapter.notifyDataSetChanged()
-            val gson = Gson()
-            val galleryintent = Intent(this, Galleryactivity::class.java).apply{
-                putExtra("galData", gson.toJson(datap))
-            }
-            galleryintent
+            //적용
+            GalleryAdapter.notifyDataSetChanged()
         }
     }
+
     fun addDataToList() {
         dataf.add(Fddata(Folderpic = R.drawable.profile1, date = "1월" ))
         dataf.add(Fddata(Folderpic = R.drawable.profile2, date = "2월" ))

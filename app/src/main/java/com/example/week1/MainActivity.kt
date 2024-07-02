@@ -1,5 +1,6 @@
 package com.example.week1
 
+import android.content.ContentResolver
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import android.net.Uri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,15 +49,17 @@ class MainActivity : AppCompatActivity() {
 
         addActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                result.data?.let {
-                    val name = it.getStringExtra("name") ?: return@let
-                    val number = it.getStringExtra("number") ?: return@let
-                    val bd = it.getStringExtra("bd") ?: return@let
-                    val imgicon = R.drawable.msgicon //일단은 이걸로 해놓기
-                    val insta = it.getStringExtra("insta") ?: return@let
-                    val snsData = ProfileData.SnsData(imgicon,number,insta)
-                    datas.add(ProfileData(name = name, bd = bd, img = R.drawable.k1, snsData = snsData))
-                    //그리고 Profile안의 SNSData에도 접근해서 고칠 수 있게 바꿔야겠당
+                result.data?.let { data ->
+                    val name = data.getStringExtra("name") ?: return@let
+                    val number = data.getStringExtra("number") ?: return@let
+                    val bd = data.getStringExtra("bd") ?: return@let
+                    val imgUriString = data.getStringExtra("photo") ?: return@let // 문자열로 받은 URI
+                    val imgUri = Uri.parse(imgUriString) // 문자열을 다시 Uri로 변환
+                    val img = imgUri.toString()
+                    val imgicon = R.drawable.msgicon //일단은 이걸로 해놓기 -> 나중에 바꿀 거여
+                    val insta = data.getStringExtra("insta") ?: return@let
+                    val snsData = ProfileData.SnsData(imgicon, number, insta)
+                    datas.add(ProfileData(name = name, bd = bd, img = img, snsData = snsData))
                     profileAdapter.notifyDataSetChanged()
                 }
             }
@@ -107,14 +111,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun getUriToDrawable(resId: Int): Uri {
+        return Uri.Builder()
+            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            .authority(resources.getResourcePackageName(resId))
+            .appendPath(resources.getResourceTypeName(resId))
+            .appendPath(resources.getResourceEntryName(resId))
+            .build()
+    }
+
     private fun addDataToList() {
-        datas.add(ProfileData(img = R.drawable.profile1, name = "Seowon", bd = "2002.10.30", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-2923-4581", insta= "shinseon_1030")))
-        datas.add(ProfileData(img = R.drawable.profile3, name = "Suhwan", bd = "2000.04.24", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6289-4581", insta= "k.__swan")))
-        datas.add(ProfileData(img = R.drawable.profile2, name = "Hyunji", bd = "2002.02.07", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6468-5953", insta= "abbyycha_")))
-        datas.add(ProfileData(img = R.drawable.profile5, name = "Gyeongsuk", bd = "2005.11.09", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4082-8427", insta= "s.g.seogi")))
-        datas.add(ProfileData(img = R.drawable.profile4, name = "Pukook", bd = "2000.07.03", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6472-8727", insta= "yeon_u_68")))
-        datas.add(ProfileData(img = R.drawable.profile1, name = "신서원", bd = "2002.10.30", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-2923-4581", insta= "s1ngs0ng30")))
-        datas.add(ProfileData(img = R.drawable.profile3, name = "김수환", bd = "2000.04.24", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6289-4581", insta= "k.__swan")))
-        datas.add(ProfileData(img = R.drawable.profile2, name = "Sieun", bd = "2003.04.06", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4601-8412", insta= "ruozey")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile1).toString(), name = "Seowon", bd = "2002.10.30", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-2923-4581", insta= "shinseon_1030")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile3).toString(), name = "Suhwan", bd = "2000.04.24", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6472-8727", insta= "k.__swan")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile2).toString(), name = "Hyunji", bd = "2002.02.07", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6468-5953", insta= "abbyycha_")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile5).toString(), name = "Gyeongsuk", bd = "2005.11.09", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4082-8427", insta= "s.g.seogi")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile4).toString(), name = "Hanjeong", bd = "2000.07.21", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6289-4581", insta= "yeon_u_68")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile1).toString(), name = "Chaeun", bd = "2002.07.03", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4717-7215", insta= "chh_0703")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile3).toString(), name = "Minji", bd = "1999.08.21", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-6289-4581", insta= "hae.won.__")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile2).toString(), name = "Sieun", bd = "2002.04.06", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4601-8412", insta= "ruozey")))
     }
 }
