@@ -2,11 +2,13 @@ package com.example.week1
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
@@ -38,7 +40,7 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
             txtName.text = item.name
 
             txtBd.text = item.bd
-            Glide.with(itemView).load(item.img).into(imgProfile)
+            Glide.with(itemView).load(Uri.parse(item.img)).into(imgProfile)
 
             itemView.setOnClickListener {
                 val gson = Gson()
@@ -46,6 +48,23 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
                     putExtra("data", gson.toJson(item))
                 }
                 context.startActivity(profileDetailActivityIntent)
+            }
+
+            itemView.setOnLongClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    AlertDialog.Builder(itemView.context).apply {
+                        setTitle("연락처 삭제하기")
+                        setMessage("${datas[position].name}을(를) 삭제하시겠습니까?")
+                        setPositiveButton("삭제하기") { _, _ ->
+                            datas.removeAt(position)
+                            notifyDataSetChanged()
+                        }
+                        setNeutralButton("취소", null)
+                        show()
+                    }
+                }
+                false
             }
         }
     }

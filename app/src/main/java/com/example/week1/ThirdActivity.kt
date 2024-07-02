@@ -37,16 +37,16 @@ class ThirdActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.bg_spring).setOnClickListener {
-            targetView.setBackgroundResource(R.drawable.profile1)
+            targetView.setBackgroundResource(R.drawable.spring)
         }
         findViewById<Button>(R.id.bg_summer).setOnClickListener {
-            targetView.setBackgroundResource(R.drawable.profile2)
+            targetView.setBackgroundResource(R.drawable.summer)
         }
         findViewById<Button>(R.id.bg_fall).setOnClickListener {
-            targetView.setBackgroundResource(R.drawable.profile3)
+            targetView.setBackgroundResource(R.drawable.fall)
         }
         findViewById<Button>(R.id.bg_winter).setOnClickListener {
-            targetView.setBackgroundResource(R.drawable.profile4)
+            targetView.setBackgroundResource(R.drawable.winter)
         }
 
         findViewById<Button>(R.id.ft_basic).setOnClickListener {
