@@ -1,4 +1,5 @@
 package com.example.week1
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +31,21 @@ class GalleryActivityAdapter(private val context: Context) : RecyclerView.Adapte
         fun bind(item: GalleryData) {
             photoDate.text = item.date
             Glide.with(itemView).load(item.img).into(photoImg)
+
+            itemView.setOnLongClickListener { view ->
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val builder = AlertDialog.Builder(itemView.context)
+                    builder.setTitle("사진 삭제")
+                    builder.setMessage("사진을 삭제하시겠습니까?")
+                    builder.setPositiveButton("삭제") { dialog, which -> datap.removeAt(position); notifyItemRemoved(position)}
+                    builder.setNegativeButton("취소", null)
+                    builder.show()
+                }
+                true
+            }
         }
+
     }
 
 
