@@ -2,17 +2,22 @@ package com.example.week1
 
 import android.content.ContentResolver
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import android.net.Uri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.databinding.ActivityMainBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.util.Locale
 
 
@@ -23,14 +28,87 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ssvv: SearchView
     private lateinit var profileAdapter: ProfileAdapter
     private var datas = mutableListOf<ProfileData>()
-
+    private var saveddata: MutableList<ProfileData> = mutableListOf()
     private lateinit var addActivityResultLauncher: ActivityResultLauncher<Intent>
+    var isDataParsed = false
+
+
+
+    override fun onPause() {
+        super.onPause()
+        saveData()
+    }
+
+    private fun saveData() {
+        val sharedPreferences = getSharedPreferences("galleryData1", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        if(datas != null){
+            saveddata = mutableListOf()
+            saveddata.clear()
+            for (i in datas.indices) {
+                saveddata.add(
+                    ProfileData(
+                        name = datas[i].name,
+                        bd = datas[i].bd,
+                        img = datas[i].img,
+                        snsData = datas[i].snsData
+                    )
+                )
+            }
+            editor.putString("gsonData1", gson.toJson(saveddata))
+            editor.apply()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        datas.clear()
         super.onCreate(savedInstanceState)
+        fun decodeFile(filePath: String): Bitmap? {
+            // 파일 경로에서 Bitmap 로드
+            return BitmapFactory.decodeFile(filePath)
+        }
+
+        //데이터 불러오기
+        fun loadData() {
+            val sharedPreferences = getSharedPreferences("galleryData1", MODE_PRIVATE)
+            val gson = Gson()
+            val json = sharedPreferences.getString("gsonData1", null)
+            datas = mutableListOf()
+            datas.clear()
+            if (isDataParsed != true) {
+                addDataToList()
+                sharedPreferences.edit().remove(json)
+                isDataParsed = true
+            }
+            if (json != null) {
+                val type =
+                    object : TypeToken<MutableList<ProfileData>>() {}.type
+                val intedata: MutableList<ProfileData> =
+                    gson.fromJson(json, type)
+                val nameList: List<String> = intedata.map { it.name }
+                Log.d("GalleryActivity", "Extracted nameList: $nameList")
+                val bdList: List<String> = intedata.map { it.bd }
+                Log.d("GalleryActivity", "Extracted date: $bdList")
+                val imgList: List<String> = intedata.map { it.img }
+                Log.d("GalleryActivity", "Extracted imgList: $imgList")
+                val snsDataList: List<ProfileData.SnsData> = intedata.map { it.snsData }
+                Log.d("GalleryActivity", "Extracted imgList: $snsDataList")
+                datas.clear()
+                saveddata.clear()
+                saveddata = mutableListOf()
+                for (i in imgList.indices) {
+                    datas.add(ProfileData(name = nameList[i], bd = bdList[i], img = imgList[i], snsData = snsDataList[i]))
+                }
+//                addDataToList() //initrecycler에 있던 부분에서 data 관련된 것만 빼버림.
+                ProfileAdapter(this).notifyDataSetChanged()
+
+            }
+        }
         //enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
         binding.createProfileButton.setBackgroundResource(R.drawable.plus)
+
 
         rrvv = binding.rvProfile
         ssvv = binding.svProfile
@@ -38,13 +116,12 @@ class MainActivity : AppCompatActivity() {
         rrvv.setHasFixedSize(true)
         rrvv.layoutManager = LinearLayoutManager(this)
 
-        addDataToList() //initrecycler에 있던 부분에서 data 관련된 것만 빼버림.
+        loadData() // 데이터 불러오기
 
         profileAdapter = ProfileAdapter(this)
         profileAdapter.datas=datas
         rrvv.adapter = profileAdapter
 
-        val number = 11.01
 
         addActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
