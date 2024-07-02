@@ -8,10 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 
 class FdActivityAdapter(private val context: Context) : RecyclerView.Adapter<FdActivityAdapter.ViewHolder>() {
     var dataf = mutableListOf<Fddata>()
+    var intedata = mutableListOf<Fddata>()
+    var datap = mutableListOf<GalleryData>()
+    private var saveddata: MutableList<Fddata.InteGalleryData> = mutableListOf()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FdActivityAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_rv_fd,parent,false)
@@ -24,6 +27,8 @@ class FdActivityAdapter(private val context: Context) : RecyclerView.Adapter<FdA
         holder.bind(dataf[position])
     }
 
+
+
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val FolderImg: ImageView = itemView.findViewById(R.id.FolderBtn)
         val Foldername: TextView = itemView.findViewById(R.id.FolderName)
@@ -31,11 +36,15 @@ class FdActivityAdapter(private val context: Context) : RecyclerView.Adapter<FdA
             Foldername.text = item.date
             Glide.with(itemView).load(item.Folderpic).into(FolderImg)
             itemView.setOnClickListener {
-                val gson = Gson()
-                val GalleryactivityIntent = Intent(context, Galleryactivity::class.java).apply {
-                    putExtra("date", gson.toJson(item))
-                }
-                context.startActivity(GalleryactivityIntent)
+                val GalleryActivityIntent = Intent(context, GalleryActivity::class.java)
+//                val gson = Gson()
+//                if(datap != null){
+//                    for (i in datap.indices) {
+//                        saveddata.add(Fddata.InteGalleryData(img = datap[i].img.toString(), date = datap[i].date))
+//                    }
+//                    GalleryActivityIntent.putExtra("gsonData2", gson.toJson(saveddata))
+//                }
+                context.startActivity(GalleryActivityIntent)
             }
         }
 
