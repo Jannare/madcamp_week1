@@ -20,7 +20,7 @@ class FdActivityAdapter(private val context: Context) : RecyclerView.Adapter<FdA
 
     override fun getItemCount(): Int = dataf.size
 
-    override fun onBindViewHolder(holder: FdActivityAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataf[position])
     }
 
@@ -30,13 +30,11 @@ class FdActivityAdapter(private val context: Context) : RecyclerView.Adapter<FdA
         fun bind(item: Fddata) {
             Foldername.text = item.date
             Glide.with(itemView).load(item.Folderpic).into(FolderImg)
-
             itemView.setOnClickListener {
                 val gson = Gson()
                 val GalleryactivityIntent = Intent(context, Galleryactivity::class.java).apply {
                     putExtra("date", gson.toJson(item))
                 }
-                println("엄창용바보1")
                 context.startActivity(GalleryactivityIntent)
             }
         }

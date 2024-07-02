@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
-            intent.putExtra("number",number)
             startActivity(intent)
         }
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

@@ -30,23 +30,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity" />
-        <activity android:name=".FdActivity" />
         <activity android:name=".AddActivity" />
-
-        <activity
-            android:name=".Galleryactivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-
-
-
-
-
+        <activity android:name=".Galleryactivity" />
+        <activity android:name="FdActivity"/>
         <activity android:name=".ThirdActivity" />
         <activity android:name=".ProfileDetailActivity" />
     </application>
