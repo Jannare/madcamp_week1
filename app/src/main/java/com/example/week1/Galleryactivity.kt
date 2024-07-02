@@ -13,14 +13,18 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.week1.databinding.ActivityGalleryBinding
 import com.example.week1.databinding.PhototimeBinding
+import com.google.gson.Gson
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 
@@ -28,9 +32,13 @@ class Galleryactivity : AppCompatActivity() {
 
     // 갤러리 불러오는데 필요한 변수
     lateinit var binding: ActivityGalleryBinding
-    lateinit var GalleryAdapter: GalleryactivityAdapter //RV를 위해..
+    lateinit var galleryAdapter: GalleryactivityAdapter //RV를 위해..
     lateinit var binding1: PhototimeBinding //카메라를 위해..
     var datap = mutableListOf<GalleryData>()
+    private val sharedViewModel: sharedViewModel by viewModels()
+
+
+
 //    private var imageList: ArrayList<Uri> = ArrayList()
 
     // 사진 촬영에 필요한 변수, storage 권한 처리...
@@ -48,11 +56,16 @@ class Galleryactivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
+        enableEdgeToEdge()
+        //Binding
         binding1 = PhototimeBinding.inflate(layoutInflater) //카메라 촬영용
         binding = ActivityGalleryBinding.inflate(layoutInflater) // rv용
         setContentView(binding.root)
 
+        val json = intent.getStringExtra("galData")
+        val gson = Gson()
+        // 이거 넣으면 팅김..
+        //datap = gson.fromJson(json, Array<GalleryData>::class.java).toMutableList()
 
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
@@ -67,13 +80,17 @@ class Galleryactivity : AppCompatActivity() {
 
 
         //Adapter와 데이터 연결
-        GalleryAdapter = GalleryactivityAdapter(datap,this)
-        GalleryAdapter.datap = datap
+//        galleryAdapter.datap = datap
+        galleryAdapter = GalleryactivityAdapter(datap, this)
+        binding.recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerview.adapter = galleryAdapter
 
-        //RecyclerView, 어댑터와 연결
-        binding.recyclerview.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerview.adapter = GalleryAdapter
+        sharedViewModel.datap.observe(this, Observer { newData ->
+            datap.clear()
+            datap.addAll(newData)
+            galleryAdapter.notifyDataSetChanged()
+        })
+
 
 
         //버튼 이벤트
@@ -193,6 +210,7 @@ class Galleryactivity : AppCompatActivity() {
 
 
         if(resultCode == Activity.RESULT_OK){
+
             when(requestCode){
                 camera_code -> {
                     if(data?.extras?.get("data") != null){
@@ -200,13 +218,13 @@ class Galleryactivity : AppCompatActivity() {
                         val uri = saveFile(SetFileName(), "image/jpeg", img)
                         if (uri != null) {
                             val date = getImageDate(uri)
-                            datap.add(GalleryData(img = uri, date = date.toString()))
+                            sharedViewModel.addGalleryData(GalleryData(img = uri, date = date.toString()))
                             }
 //                        if (uri != null) {
 //                            imageList.add(uri)
 //                        }
-                        imageView.setImageURI(uri)
-                        GalleryAdapter.notifyDataSetChanged()
+//                        imageView.setImageURI(uri)
+                        galleryAdapter.notifyDataSetChanged()
                     }
                 }
                 storage_code -> {
@@ -214,12 +232,12 @@ class Galleryactivity : AppCompatActivity() {
                     val uri = data!!?.data
                     if (uri != null) {
                         val date = getImageDate(uri)
-                        datap.add(GalleryData(img = uri, date = date.toString()))
+                        sharedViewModel.addGalleryData(GalleryData(img = uri, date = date.toString()))
                     }
 //                    if (uri !=null)
 //                        imageList.add(uri)
-                    imageView.setImageURI(uri)
-                    GalleryAdapter.notifyDataSetChanged()
+//                    imageView.setImageURI(uri)
+                    galleryAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -259,10 +277,6 @@ class Galleryactivity : AppCompatActivity() {
 //        }
 //    }
 
-
-
-
-
     //결과 가져오기
 
     private val activityResult:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -282,7 +296,7 @@ class Galleryactivity : AppCompatActivity() {
 //                    imageList.add(imageUri)
                     // rv에 add
                     val date = getImageDate(imageUri)
-                    datap.add(GalleryData(img = imageUri, date = date.toString()))
+                    sharedViewModel.addGalleryData(GalleryData(img = imageUri, date = date.toString()))
                     Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
                 }
 
@@ -290,12 +304,12 @@ class Galleryactivity : AppCompatActivity() {
                 val imageUri = it.data!!.data
 //                imageList.add(imageUri!!)
                 val date = getImageDate(imageUri!!)
-                datap.add(GalleryData(img = imageUri, date = date.toString()))
+                sharedViewModel.addGalleryData(GalleryData(img = imageUri, date = date.toString()))
                 Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
             }
 
             //적용
-            GalleryAdapter.notifyDataSetChanged()
+            galleryAdapter.notifyDataSetChanged()
         }
     }
     // 데이터에 추가하기

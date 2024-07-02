@@ -10,29 +10,29 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.week1.databinding.ActivityFolderBinding
 import com.example.week1.databinding.PhototimeBinding
+import com.google.gson.Gson
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 
 class FdActivity : AppCompatActivity() {
-
-    //필수 변수
-    private lateinit var FdActivityAdapter: FdActivityAdapter
+    private var datap = mutableListOf<GalleryData>()
     private lateinit var binding: ActivityFolderBinding
-    lateinit var GalleryAdapter: GalleryactivityAdapter //RV를 위해..
+    private val sharedViewModel: sharedViewModel by viewModels()
+    private lateinit var galleryAdapter: GalleryactivityAdapter
+    private lateinit var binding1: PhototimeBinding
     private var dataf = mutableListOf<Fddata>()
-    var datap = mutableListOf<GalleryData>()
-    lateinit var binding1: PhototimeBinding //카메라를 위해..
+    private lateinit var FdActivityAdapter: FdActivityAdapter
 
     // 사진 촬영에 필요한 변수, storage 권한 처리...
     val camera = arrayOf(Manifest.permission.CAMERA)
@@ -42,28 +42,23 @@ class FdActivity : AppCompatActivity() {
         arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     } else {
         arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
-
-
     }
     val camera_code = 98
     val storage_code = 99
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFolderBinding.inflate(layoutInflater) // 폴더용
-        binding1 = PhototimeBinding.inflate(layoutInflater) //카메라 촬영용
+        binding = ActivityFolderBinding.inflate(layoutInflater)
+        binding1 = PhototimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.FdRecyclerview.addItemDecoration(VerticalItemDecorator(20))
-        binding.FdRecyclerview.addItemDecoration(VerticalItemDecorator(10))
 
         FdActivityAdapter = FdActivityAdapter(this)
         FdActivityAdapter.dataf = dataf
         binding.FdRecyclerview.adapter = FdActivityAdapter
         binding.FdRecyclerview.layoutManager = GridLayoutManager(this,2,GridLayoutManager.HORIZONTAL, false)
 
-        GalleryAdapter = GalleryactivityAdapter(datap,this)
-        GalleryAdapter.datap = datap
-        addDataToList()
+
+        galleryAdapter = GalleryactivityAdapter(sharedViewModel.datap.value ?: mutableListOf(), this)
 
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
@@ -74,54 +69,46 @@ class FdActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-        //버튼 이벤트
         binding.galleryBtn.setOnClickListener {
-
-            //갤러리 호출
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            //다중 선택
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             activityResult.launch(intent)
         }
-        //카메라 버튼 이벤트
         binding.camBtn.setOnClickListener {
-            CallCamera() // 추후 추가할 fun
+            CallCamera()
         }
-    } //onCreate
+        addDataToList()
+    }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        when(requestCode){
+        when (requestCode) {
             camera_code -> {
                 for (grant in grantResults) {
                     if (grant != PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this, "카메라 권한을 승인해주세요", Toast.LENGTH_LONG).show()
-
-                        //재승인 요청
-                        var permissionagain = Manifest.permission.CAMERA
+                        return
                     }
                 }
+                CallCamera()
             }
-
             storage_code -> {
-                for (grant in grantResults){
-                    if(grant != PackageManager.PERMISSION_GRANTED){
+                for (grant in grantResults) {
+                    if (grant != PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this, "저장소 권한을 승인해주세요", Toast.LENGTH_LONG).show()
+                        return
                     }
                 }
+                // Storage 권한 승인됨
             }
         }
     }
-    //다른 권한 확인
-    fun checkPermission(permissions: Array<out String>, type:Int):Boolean{
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+    fun checkPermission(permissions: Array<out String>, type: Int): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (permission in permissions) {
                 if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, permissions, type)
@@ -132,98 +119,77 @@ class FdActivity : AppCompatActivity() {
         return true
     }
 
-    // 카메라 촬영 - 권한 처리
     fun CallCamera() {
-        if(checkPermission(camera, camera_code)) {
-            if ( checkPermission(storage, storage_code)) {
+        if (checkPermission(camera, camera_code)) {
+            if (checkPermission(storage, storage_code)) {
                 val cameraintent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 startActivityForResult(cameraintent, camera_code)
-
             }
         }
     }
 
-    // 사진 저장
-    fun saveFile(fileName:String, mimeType:String, bitmap: Bitmap): Uri?{
-
-        var CV = ContentValues ()
-
-        // MediaStore 파일 명 mime(media)Type 지정.
-        CV.put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-        CV.put(MediaStore.Images.Media.MIME_TYPE, mimeType)
-
-        //안정성 검사 업데이트 전까진 꼼짝 마!
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            CV.put(MediaStore.Images.Media.IS_PENDING, 1)
+    fun saveFile(fileName: String, mimeType: String, bitmap: Bitmap): Uri? {
+        val CV = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+            put(MediaStore.Images.Media.MIME_TYPE, mimeType)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.Images.Media.IS_PENDING, 1)
+            }
         }
 
-        // MediaStore 에 파일을 저장
         val MediaContentUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CV)
-        if(MediaContentUri != null) {
-            var scriptor = contentResolver.openFileDescriptor(MediaContentUri, "w")
-
-            val FOS = FileOutputStream(scriptor?.fileDescriptor)
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, FOS)
-            FOS.close()
+        MediaContentUri?.let { uri ->
+            contentResolver.openFileDescriptor(uri, "w")?.use {
+                FileOutputStream(it.fileDescriptor).use { fos ->
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+                }
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 CV.clear()
-                //IS_PENDING 초기화
                 CV.put(MediaStore.Images.Media.IS_PENDING, 0)
-                contentResolver.update(MediaContentUri, CV, null, null)
+                contentResolver.update(uri, CV, null, null)
             }
-
         }
         return MediaContentUri
-
     }
-    // 결과
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         val imageView = binding1.getPhoto
 
-
-        if(resultCode == Activity.RESULT_OK){
-            when(requestCode){
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
                 camera_code -> {
-                    if(data?.extras?.get("data") != null){
-                        val img = data?.extras?.get("data") as Bitmap
-                        val uri = saveFile(SetFileName(), "image/jpeg", img)
-                        if (uri != null) {
-                            val date = getImageDate(uri)
-                            datap.add(GalleryData(img = uri, date = date.toString()))
+                    (data?.extras?.get("data") as? Bitmap)?.let { img ->
+                        saveFile(SetFileName(), "image/jpeg", img)?.let { uri ->
+                            getImageDate(uri)?.let { date ->
+                                sharedViewModel.addGalleryData(GalleryData(img = uri, date = date))
+                            }
+                            imageView.setImageURI(uri)
                         }
-//                        if (uri != null) {
-//                            imageList.add(uri)
-//                        }
-                        imageView.setImageURI(uri)
-                        GalleryAdapter.notifyDataSetChanged()
+
                     }
                 }
                 storage_code -> {
-                    val img = data?.extras?.get("data") as Bitmap
-                    val uri = data!!?.data
-                    if (uri != null) {
-                        val date = getImageDate(uri)
-                        datap.add(GalleryData(img = uri, date = date.toString()))
+                    (data?.data as? Uri)?.let { uri ->
+                        getImageDate(uri)?.let { date ->
+                            sharedViewModel.addGalleryData(GalleryData(img = uri, date = date))
+                        }
+                        imageView.setImageURI(uri)
                     }
-//                    if (uri !=null)
-//                        imageList.add(uri)
-                    imageView.setImageURI(uri)
-                    GalleryAdapter.notifyDataSetChanged()
                 }
             }
+            val galleryintent = Intent(this, Galleryactivity::class.java)
+            startActivity(galleryintent)
         }
     }
-    //파일명 > 날짜로 저장 함수 SimpleDateFormat("yyyyMMdd_HHmmss").format(System.currentTimeMillis())
-    fun SetFileName():String{
-        val fileName = SimpleDateFormat("yyyyMMdd_HHmmss").format(System.currentTimeMillis())
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return fileName
 
+    fun SetFileName(): String {
+        return SimpleDateFormat("yyyyMMdd_HHmmss").format(System.currentTimeMillis())
     }
+
     //사진에서 날짜를 가져오는 함수
     fun getImageDate(imageUri: Uri): String? {
         val projection = arrayOf(MediaStore.Images.Media.DATE_TAKEN)
@@ -242,10 +208,9 @@ class FdActivity : AppCompatActivity() {
         return date
     }
 
+
     private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) {
-
-        //누른 코드 is not null
         if (it.resultCode == RESULT_OK) {
 
             if(it.data!!.clipData != null) { //다중이미지

@@ -3,25 +3,23 @@ package com.example.week1
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Environment
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.TypefaceSpan
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
-
-import android.graphics.Typeface
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.StyleSpan
-import android.text.style.TypefaceSpan
-import androidx.core.content.res.ResourcesCompat
 
 class ThirdActivity : AppCompatActivity() {
     private lateinit var targetView: View
