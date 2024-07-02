@@ -2,6 +2,7 @@ package com.example.week1
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,7 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
         fun bind(item: ProfileData) {
             txtName.text = item.name
             txtBd.text = item.bd
-            Glide.with(itemView).load(item.img).into(imgProfile)
+            Glide.with(itemView).load(Uri.parse(item.img)).into(imgProfile)
 
             itemView.setOnClickListener {
                 val gson = Gson()

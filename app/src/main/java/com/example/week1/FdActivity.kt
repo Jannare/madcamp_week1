@@ -141,7 +141,6 @@ class FdActivity : AppCompatActivity() {
 
             }
         }
-
     }
 
     // 사진 저장
@@ -272,18 +271,14 @@ class FdActivity : AppCompatActivity() {
                 datap.add(GalleryData(img = imageUri, date = date.toString()))
                 Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
             }
-
             //적용
             GalleryAdapter.notifyDataSetChanged()
         }
     }
-
 
     fun addDataToList() {
         dataf.add(Fddata(Folderpic = R.drawable.profile1, date = "1월" ))
         dataf.add(Fddata(Folderpic = R.drawable.profile2, date = "2월" ))
         dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "3월" ))
     }
-
-
 }
