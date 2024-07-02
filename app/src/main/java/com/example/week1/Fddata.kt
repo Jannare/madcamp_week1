@@ -5,5 +5,10 @@ import java.io.Serializable
 data class Fddata(
     val Folderpic: Int,
     val date: String
-) : Serializable
+) : Serializable {
+    data class InteGalleryData (
+        val img: String,
+        val date: String
+    ) : Serializable
+}
 

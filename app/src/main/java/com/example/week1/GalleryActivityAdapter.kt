@@ -1,6 +1,5 @@
 package com.example.week1
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 
-class GalleryactivityAdapter(val datap: MutableList<GalleryData>, private val context: Context) : RecyclerView.Adapter<GalleryactivityAdapter.ViewHolder>() {
+class GalleryActivityAdapter(private val context: Context) : RecyclerView.Adapter<GalleryActivityAdapter.ViewHolder>() {
+    var datap = mutableListOf<GalleryData>()
+    var intedatap = mutableListOf<GalleryData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_rv_horizontal,parent,false)
@@ -30,14 +30,8 @@ class GalleryactivityAdapter(val datap: MutableList<GalleryData>, private val co
         fun bind(item: GalleryData) {
             photoDate.text = item.date
             Glide.with(itemView).load(item.img).into(photoImg)
-            val gson = Gson()
-            val GalleryDataIntent = Intent(context, FdActivity::class.java).apply {
-                putExtra("img", gson.toJson(item))
-            }
-
         }
     }
-
 
 
 }

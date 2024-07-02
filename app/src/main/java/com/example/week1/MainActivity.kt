@@ -1,7 +1,10 @@
 package com.example.week1
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,8 +29,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        fun decodeFile(filePath: String): Bitmap? {
+            // 파일 경로에서 Bitmap 로드
+            return BitmapFactory.decodeFile(filePath)
+        }
+
+        val GG1 = Intent()
+        val img = GG1.getStringExtra("PLEASE1")
+        val date = GG1.getStringExtra("PLEASE2")
+        Log.d("GalleryActivity", "Intent234 received: $img, $date")
+
         //enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
+
 
         rrvv = binding.rvProfile
         ssvv = binding.svProfile

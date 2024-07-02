@@ -36,6 +36,7 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
         val imgProfile: ImageView = itemView.findViewById(R.id.img_rv_photo)
         fun bind(item: ProfileData) {
             txtName.text = item.name
+
             txtBd.text = item.bd
             Glide.with(itemView).load(item.img).into(imgProfile)
 
