@@ -28,10 +28,10 @@ class Galleryactivity : AppCompatActivity() {
 
     // 갤러리 불러오는데 필요한 변수
     lateinit var binding: ActivityGalleryBinding
-    lateinit var GalleryAdapter: GalleryactivityAdapter
-    lateinit var binding1: PhototimeBinding
-    var imageList: ArrayList<Uri> = ArrayList()
-    var position = 0 // 이미지 현재 위치
+    lateinit var GalleryAdapter: GalleryactivityAdapter //RV를 위해..
+    lateinit var binding1: PhototimeBinding //카메라를 위해..
+    var datap = mutableListOf<GalleryData>()
+//    private var imageList: ArrayList<Uri> = ArrayList()
 
     // 사진 촬영에 필요한 변수, storage 권한 처리...
     val camera = arrayOf(Manifest.permission.CAMERA)
@@ -49,8 +49,8 @@ class Galleryactivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
-        binding1 = PhototimeBinding.inflate(layoutInflater)
-        binding = ActivityGalleryBinding.inflate(layoutInflater)
+        binding1 = PhototimeBinding.inflate(layoutInflater) //카메라 촬영용
+        binding = ActivityGalleryBinding.inflate(layoutInflater) // rv용
         setContentView(binding.root)
 
 
@@ -64,8 +64,11 @@ class Galleryactivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+
         //Adapter와 데이터 연결
-        GalleryAdapter = GalleryactivityAdapter(imageList, this)
+        GalleryAdapter = GalleryactivityAdapter(datap,this)
+        GalleryAdapter.datap = datap
 
         //RecyclerView, 어댑터와 연결
         binding.recyclerview.layoutManager =
@@ -188,6 +191,7 @@ class Galleryactivity : AppCompatActivity() {
 
         val imageView = binding1.getPhoto
 
+
         if(resultCode == Activity.RESULT_OK){
             when(requestCode){
                 camera_code -> {
@@ -195,16 +199,25 @@ class Galleryactivity : AppCompatActivity() {
                         val img = data?.extras?.get("data") as Bitmap
                         val uri = saveFile(SetFileName(), "image/jpeg", img)
                         if (uri != null) {
-                            imageList.add(uri)
-                        }
+                            val date = getImageDate(uri)
+                            datap.add(GalleryData(img = uri, date = date.toString()))
+                            }
+//                        if (uri != null) {
+//                            imageList.add(uri)
+//                        }
                         imageView.setImageURI(uri)
                         GalleryAdapter.notifyDataSetChanged()
                     }
                 }
                 storage_code -> {
-                    val uri = data?.data
-                    if (uri !=null)
-                        imageList.add(uri)
+                    val img = data?.extras?.get("data") as Bitmap
+                    val uri = data!!?.data
+                    if (uri != null) {
+                        val date = getImageDate(uri)
+                        datap.add(GalleryData(img = uri, date = date.toString()))
+                    }
+//                    if (uri !=null)
+//                        imageList.add(uri)
                     imageView.setImageURI(uri)
                     GalleryAdapter.notifyDataSetChanged()
                 }
@@ -266,20 +279,27 @@ class Galleryactivity : AppCompatActivity() {
                     //이미지 담기
                     val imageUri = it.data!!.clipData!!.getItemAt(index).uri
                     // 이미지 add
-                    imageList.add(imageUri)
+//                    imageList.add(imageUri)
+                    // rv에 add
                     val date = getImageDate(imageUri)
+                    datap.add(GalleryData(img = imageUri, date = date.toString()))
                     Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
                 }
 
             }else { //single image
                 val imageUri = it.data!!.data
-                imageList.add(imageUri!!)
-                val date = getImageDate(imageUri)
+//                imageList.add(imageUri!!)
+                val date = getImageDate(imageUri!!)
+                datap.add(GalleryData(img = imageUri, date = date.toString()))
                 Toast.makeText(this, "Date: $date",Toast.LENGTH_LONG).show()
             }
 
             //적용
             GalleryAdapter.notifyDataSetChanged()
         }
+    }
+    // 데이터에 추가하기
+    private fun addData() {
+
     }
 }

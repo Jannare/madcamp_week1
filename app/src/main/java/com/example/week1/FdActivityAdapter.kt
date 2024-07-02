@@ -1,5 +1,6 @@
 package com.example.week1
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,32 +8,40 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 
-class GalleryactivityAdapter(val items: MutableList<GalleryData>, private val context: Context) : RecyclerView.Adapter<GalleryactivityAdapter.ViewHolder>() {
+class FdActivityAdapter(private val context: Context) : RecyclerView.Adapter<FdActivityAdapter.ViewHolder>() {
+    var dataf = mutableListOf<Fddata>()
 
-    var datap = mutableListOf<GalleryData>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryactivityAdapter.ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_rv_horizontal,parent,false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FdActivityAdapter.ViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.item_rv_fd,parent,false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = datap.size
+    override fun getItemCount(): Int = dataf.size
 
-    override fun onBindViewHolder(holder: GalleryactivityAdapter.ViewHolder, position: Int) {
-        holder.bind(datap[position])
+    override fun onBindViewHolder(holder: FdActivityAdapter.ViewHolder, position: Int) {
+        holder.bind(dataf[position])
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val photoImg: ImageView = itemView.findViewById(R.id.galleryView)
-        val photoDate: TextView = itemView.findViewById(R.id.photoDate)
-        fun bind(item: GalleryData) {
-            photoDate.text = item.date
-            Glide.with(itemView).load(item.img).into(photoImg)
+        val FolderImg: ImageView = itemView.findViewById(R.id.FolderBtn)
+        val Foldername: TextView = itemView.findViewById(R.id.FolderName)
+        fun bind(item: Fddata) {
+            Foldername.text = item.date
+            Glide.with(itemView).load(item.Folderpic).into(FolderImg)
+
+            itemView.setOnClickListener {
+                val gson = Gson()
+                val GalleryactivityIntent = Intent(context, Galleryactivity::class.java).apply {
+                    putExtra("date", gson.toJson(item))
+                }
+                println("엄창용바보1")
+                context.startActivity(GalleryactivityIntent)
+            }
         }
+
     }
-
-
 
 }
 //    lateinit var imageList: ArrayList<Uri>
