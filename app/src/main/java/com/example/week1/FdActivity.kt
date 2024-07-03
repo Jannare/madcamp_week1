@@ -53,14 +53,14 @@ class FdActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         fun addDataToList() {
-            dataf.add(Fddata(Folderpic = R.drawable.profile1, date = "모든 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile2, date = "1월의 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "2월의 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile4, date = "3월의 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "4월의 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "5월의 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "6월의 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "7월의 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.j2, date = "모든 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.k2, date = "1월의 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.k3, date = "2월의 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.k4, date = "3월의 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.j3, date = "4월의 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.j5, date = "5월의 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.k1, date = "6월의 추억" ))
+            dataf.add(Fddata(Folderpic = R.drawable.profile4, date = "7월의 추억" ))
         }
         addDataToList()
         datap = mutableListOf()
