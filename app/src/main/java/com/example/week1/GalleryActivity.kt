@@ -100,16 +100,9 @@ class GalleryActivity : AppCompatActivity() {
         binding.camBtn.setBackgroundResource(R.drawable.cam)
         binding.galleryBtn.setBackgroundResource(R.drawable.gal)
 
-
-
         galleryAdapter = GalleryActivityAdapter(this)
         binding.recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerview.adapter = galleryAdapter
-
-
-
-
-
 
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)

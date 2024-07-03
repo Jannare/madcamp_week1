@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat
 class FdActivity : AppCompatActivity() {
     private var datap = mutableListOf<GalleryData>()
     private lateinit var binding: ActivityFolderBinding
-    private lateinit var galleryAdapter: GalleryActivityAdapter
+    private lateinit var galleryadapter: GalleryActivityAdapter
     private lateinit var binding1: PhototimeBinding
     private var dataf = mutableListOf<Fddata>()
     private var intedata = mutableListOf<Fddata.InteGalleryData>()
@@ -60,7 +60,7 @@ class FdActivity : AppCompatActivity() {
             dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "4월의 추억" ))
             dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "5월의 추억" ))
             dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "6월의 추억" ))
-            dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "3월" ))
+            dataf.add(Fddata(Folderpic = R.drawable.profile3, date = "7월의 추억" ))
         }
         addDataToList()
         datap = mutableListOf()
@@ -78,35 +78,9 @@ class FdActivity : AppCompatActivity() {
         binding.FdRecyclerview.layoutManager = GridLayoutManager(this,2,GridLayoutManager.HORIZONTAL, false)
         binding.FdRecyclerview.addItemDecoration(GridSpacingItemDecoration(2, 2, false))
 
-        var isDataParsed = false
 
-
-//        fun loadData() {
-//            val sharedPreferences = getSharedPreferences("galleryData2", MODE_PRIVATE)
-//            val gson = Gson()
-//            val json = sharedPreferences.getString("gsonData2", null)
-//            if (!isDataParsed) {
-//                if (json != null) {
-//                    val type =
-//                        object : TypeToken<MutableList<GalleryData.InteGalleryData>>() {}.type
-//                    val intedata: MutableList<GalleryData.InteGalleryData> =
-//                        gson.fromJson(json, type)
-//                    val imgList: List<String> = intedata.map { it.img }
-//                    Log.d("GalleryActivity", "Extracted imgList: $imgList")
-//                    val dateList: List<String> = intedata.map { it.date }
-//                    Log.d("GalleryActivity", "Extracted date: $dateList")
-//                    for (i in imgList.indices) {
-//                        datap.add(GalleryData(img = (Uri.parse(imgList[i])), date = dateList[i]))
-//                    }
-//                    isDataParsed = true
-//                }
-//            }
-//        }
-
-
-
-        galleryAdapter = GalleryActivityAdapter(this)
-        galleryAdapter.datap = datap
+        galleryadapter = GalleryActivityAdapter(this)
+        galleryadapter.datap = datap
         binding.change23Button.setOnClickListener {
             val intent = Intent(this, ThirdActivity::class.java)
             startActivity(intent)
@@ -363,7 +337,7 @@ class FdActivity : AppCompatActivity() {
                 startActivity(GG)
             }
             //적용
-            galleryAdapter.notifyDataSetChanged()
+            galleryadapter.notifyDataSetChanged()
         }
     }
 }

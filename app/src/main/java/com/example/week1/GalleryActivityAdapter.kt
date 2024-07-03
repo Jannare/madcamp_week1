@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 
 class GalleryActivityAdapter(private val context: Context) : RecyclerView.Adapter<GalleryActivityAdapter.ViewHolder>() {
     var datap = mutableListOf<GalleryData>()
-    var intedatap = mutableListOf<GalleryData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_rv_horizontal,parent,false)

@@ -41,7 +41,7 @@ class AddActivity : AppCompatActivity() {
     private lateinit var edtBd: EditText
     private lateinit var edtInsta: EditText
     private lateinit var btnEditImage: ImageButton
-    private lateinit var btnSubmit: ImageButton
+    private lateinit var btnSubmit: Button
 
     lateinit var name: String
     lateinit var number: String
@@ -78,7 +78,6 @@ class AddActivity : AppCompatActivity() {
         btnEditImage = binding.btnEdtImage
         btnSubmit = binding.btnSubmit
         binding.btnEdtImage.setBackgroundResource(R.drawable.plus)
-        binding.btnSubmit.setBackgroundResource(R.drawable.savee)
 
         btnEditImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)

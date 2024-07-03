@@ -5,9 +5,54 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/LinearLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.widget.Button
+            android:id="@+id/change21Button"
+            android:layout_weight="0.3333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/color_change"
+            android:text="연락처"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/change22Button"
+            />
+
+        <android.widget.Button
+            android:id="@+id/change22Button"
+            android:layout_weight="0.3333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/color_change"
+            android:text="갤러리"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/change21Button"
+            app:layout_constraintEnd_toStartOf="@+id/change23Button"/>
+
+        <android.widget.Button
+            android:id="@+id/change23Button"
+            android:layout_weight="0.3333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="편지"
+            android:background="@drawable/color_change"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/change22Button"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll2save"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="400dp"
         android:background="@drawable/summer"
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
@@ -22,7 +67,7 @@
 
         <EditText
             android:id="@+id/et2write"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginBottom="10dp"
@@ -48,7 +93,7 @@
         android:layout_marginRight="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/change22Button"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayout"
         app:layout_constraintBottom_toTopOf="@id/ll2save">
 
         <Button
@@ -107,7 +152,7 @@
     <LinearLayout
         android:id="@+id/ll2select"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
@@ -122,7 +167,7 @@
             android:layout_weight="1"
             android:id="@+id/ll2selectFont"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -368,8 +413,8 @@
         android:id="@+id/btn_saveLetter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:text="이미지로 저장하기"
         android:backgroundTint="@color/md_theme_surface"
         app:layout_constraintTop_toBottomOf="@id/ll2select"
@@ -377,39 +422,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.widget.Button
-        android:id="@+id/change21Button"
-        android:layout_width="137sp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/color_change"
-        android:text="연락처"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/change22Button"
-        />
 
-    <android.widget.Button
-        android:id="@+id/change22Button"
-        android:layout_width="138sp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/color_change"
-        android:text="갤러리"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/change21Button"
-        app:layout_constraintEnd_toStartOf="@+id/change23Button"/>
-
-    <android.widget.Button
-        android:id="@+id/change23Button"
-        android:layout_width="137sp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:text="편지"
-        android:background="@drawable/color_change"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/change22Button"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
