@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 
 class SnsAdapter(private val context: Context) : RecyclerView.Adapter<SnsAdapter.ViewHolder>() {
 
@@ -40,7 +38,7 @@ class SnsAdapter(private val context: Context) : RecyclerView.Adapter<SnsAdapter
                     val callIntent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+txtNum.text))
                     context.startActivity(callIntent)
                 }
-                else if (txtNum.text.startsWith("0") && item.imgIcon==R.drawable.msgicon){
+                else if (txtNum.text.startsWith("0") && item.imgIcon==R.drawable.msgicon1){
                     val msgIntent = Intent(Intent.ACTION_SENDTO,Uri.parse("sms:"+txtNum.text))
                     context.startActivity(msgIntent)
                 }

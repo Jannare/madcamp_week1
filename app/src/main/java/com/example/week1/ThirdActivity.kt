@@ -74,6 +74,18 @@ class ThirdActivity : AppCompatActivity() {
         findViewById<Button>(R.id.tc_cheers).setOnClickListener {
             currentView.append("♡⸜(ˆᗜˆ˵ )⸝♡")
         }
+        findViewById<Button>(R.id.tc_wink).setOnClickListener {
+            currentView.append("(•͈ᴗ-)ᓂ-ෆ")
+        }
+        findViewById<Button>(R.id.tc_shy).setOnClickListener {
+            currentView.append("(*/ω＼*)")
+        }
+        findViewById<Button>(R.id.tc_sad).setOnClickListener {
+            currentView.append("ʕ´•̥ᴥ•̥`ʔ")
+        }
+        findViewById<Button>(R.id.tc_sleep).setOnClickListener {
+            currentView.append("_(:ι」∠)_")
+        }
 
 
         val change22Button: Button = findViewById(R.id.change22Button)

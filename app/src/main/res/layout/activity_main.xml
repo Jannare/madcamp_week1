@@ -8,36 +8,49 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <Button
-            android:id="@+id/change21Button"
-            android:layout_width="137sp"
+        <LinearLayout
+            android:id="@+id/LinearLayout"
             android:layout_height="wrap_content"
-            android:text="연락처"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/change22Button" />
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/change22Button"
-            android:layout_width="138sp"
-            android:layout_height="wrap_content"
-            android:text="갤러리"
-            android:background="@drawable/color_change"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/change21Button"
-            app:layout_constraintRight_toLeftOf="@+id/change23Button" />
+            <android.widget.Button
+                android:id="@+id/change21Button"
+                android:layout_width="match_parent"
+                android:layout_weight="0.3333"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="연락처"
+                android:textColor="@color/black"
+                android:background="@drawable/color_change"
+                android:backgroundTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/change22Button" />
 
-        <Button
-            android:id="@+id/change23Button"
-            android:layout_width="137sp"
-            android:layout_height="wrap_content"
-            android:text="편지"
-            android:background="@drawable/color_change"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/change22Button"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <android.widget.Button
+                android:id="@+id/change22Button"
+                android:layout_width="match_parent"
+                android:layout_weight="0.3333"
+                android:layout_height="wrap_content"
+                android:text="갤러리"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/white"
+                android:background="@drawable/color_change"
+                app:layout_constraintStart_toEndOf="@+id/change21Button"
+                app:layout_constraintEnd_toStartOf="@+id/change23Button" />
+
+            <android.widget.Button
+                android:id="@+id/change23Button"
+                android:layout_width="match_parent"
+                android:layout_weight="0.3333"
+                android:layout_height="wrap_content"
+                android:text="편지"
+                android:textColor="@color/white"
+                android:background="@drawable/color_change"
+                app:layout_constraintStart_toEndOf="@+id/change22Button"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcv_profile"
@@ -49,7 +62,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/change21Button"
+            app:layout_constraintTop_toBottomOf="@id/LinearLayout"
             app:cardBackgroundColor="@color/md_theme_secondaryContainer"
             >
 

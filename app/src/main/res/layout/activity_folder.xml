@@ -38,18 +38,19 @@
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/change21Button"
                 android:layout_width="match_parent"
                 android:layout_weight="0.3333"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:text="연락처"
+                android:textColor="@color/white"
                 android:background="@drawable/color_change"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/change22Button" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/change22Button"
                 android:layout_width="match_parent"
                 android:layout_weight="0.3333"
@@ -57,16 +58,18 @@
                 android:text="갤러리"
                 android:layout_alignParentStart="true"
                 android:textColor="@color/black"
+                android:background="@drawable/color_change"
                 android:backgroundTint="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/change21Button"
                 app:layout_constraintEnd_toStartOf="@+id/change23Button" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/change23Button"
                 android:layout_width="match_parent"
                 android:layout_weight="0.3333"
                 android:layout_height="wrap_content"
                 android:text="편지"
+                android:textColor="@color/white"
                 android:background="@drawable/color_change"
                 app:layout_constraintStart_toEndOf="@+id/change22Button"
                 app:layout_constraintEnd_toEndOf="parent"/>
