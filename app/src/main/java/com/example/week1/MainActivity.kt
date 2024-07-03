@@ -77,8 +77,11 @@ class MainActivity : AppCompatActivity() {
             datas = mutableListOf()
             datas.clear()
             if (isDataParsed != true) {
+
                 addDataToList()
-                sharedPreferences.edit().remove(json)
+                Log.d("GalleryActivity", "is data added??: $datas")
+                sharedPreferences.edit().clear().commit()
+                Log.d("GalleryActivity", "is json null??: $json")
                 isDataParsed = true
             }
             if (json != null) {
