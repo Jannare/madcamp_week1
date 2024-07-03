@@ -201,12 +201,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun addDataToList() {
         datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile1).toString(), name = "도널드 커누스", bd = "1938.01.10", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-1111-2222", insta= "shinseon_1030")))
-        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile3).toString(), name = "아이작 뉴턴", bd = "1643.01.04", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-2222-3333", insta= "k.__swan")))
-        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile2).toString(), name = "존 폰 노이만", bd = "1903.12.28", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-3333-4444", insta= "kaist_sae")))
-        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile5).toString(), name = "리쳐드 파인만", bd = "1918.05.11", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4444-5555", insta= "green_in_kaist")))
-        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile4).toString(), name = "마리 퀴리", bd = "1867.11.07", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-5555-6666", insta= "eunmak_kaist_")))
-        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile1).toString(), name = "앨런 튜링", bd = "1999.07.03", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-0404-0404", insta= "in.cs.tagram")))
-        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile3).toString(), name = "스티브 호킹", bd = "1942.01.08", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-7777-8888", insta= "official_kaist")))
-        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile2).toString(), name = "토마스 에디슨", bd = "1847.02.11", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-8888-9999", insta= "imgeffect.kaist")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile2).toString(), name = "아이작 뉴턴", bd = "1643.01.04", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-2222-3333", insta= "k.__swan")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile3).toString(), name = "존 폰 노이만", bd = "1903.12.28", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-3333-4444", insta= "kaist_sae")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile4).toString(), name = "리쳐드 파인만", bd = "1918.05.11", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-4444-5555", insta= "green_in_kaist")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile5).toString(), name = "마리 퀴리", bd = "1867.11.07", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-5555-6666", insta= "eunmak_kaist_")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile6).toString(), name = "앨런 튜링", bd = "1999.07.03", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-0404-0404", insta= "in.cs.tagram")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile7).toString(), name = "스티브 호킹", bd = "1942.01.08", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-7777-8888", insta= "official_kaist")))
+        datas.add(ProfileData(img = getUriToDrawable(R.drawable.profile1).toString(), name = "토마스 에디슨", bd = "1847.02.11", snsData = ProfileData.SnsData(imgIcon = R.drawable.callicon, number="010-8888-9999", insta= "imgeffect.kaist")))
     }
 }
