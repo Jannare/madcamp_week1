@@ -39,6 +39,7 @@
             android:id="@+id/LinearLayout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:background="@color/black"
             app:layout_constraintTop_toTopOf="parent">
             <Button
                 android:id="@+id/change21Button"
@@ -47,9 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:text="연락처"
-                android:background="@drawable/color_change"
+                android:backgroundTint="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/change22Button" />
+<!--                android:background="@drawable/color_change"-->
+
 
             <Button
                 android:id="@+id/change22Button"
@@ -60,6 +63,7 @@
                 android:layout_alignParentStart="true"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"
+
                 app:layout_constraintStart_toEndOf="@+id/change21Button"
                 app:layout_constraintEnd_toStartOf="@+id/change23Button" />
 
