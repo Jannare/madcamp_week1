@@ -110,6 +110,22 @@ class GalleryActivity : AppCompatActivity() {
 
 
 
+
+        binding.change23Button.setOnClickListener {
+            val intent = Intent(this, ThirdActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.change21Button.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
+        //Adapter와 데이터 연결
+
+        loadData()
         val img = intent.getStringExtra("PLEASE5")
         val date = intent.getStringExtra("PLEASED5")
         Log.d("GalleryActivity", "Intent0 received: $img, $date")
@@ -172,22 +188,6 @@ class GalleryActivity : AppCompatActivity() {
             datap.add(GalleryData(img = (Uri.parse(img3)), date = date.toString()))
             galleryAdapter.notifyDataSetChanged()
         }
-
-        binding.change23Button.setOnClickListener {
-            val intent = Intent(this, ThirdActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.change21Button.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-
-
-        //Adapter와 데이터 연결
-
-        loadData()
         galleryAdapter.datap = datap
         //버튼 이벤트
         binding.galleryBtn.setOnClickListener {
