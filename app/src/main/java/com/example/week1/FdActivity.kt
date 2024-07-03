@@ -76,6 +76,8 @@ class FdActivity : AppCompatActivity() {
         FdActivityAdapter.dataf = dataf
         binding.FdRecyclerview.adapter = FdActivityAdapter
         binding.FdRecyclerview.layoutManager = GridLayoutManager(this,2,GridLayoutManager.HORIZONTAL, false)
+        binding.FdRecyclerview.addItemDecoration(GridSpacingItemDecoration(2, 2, false))
+
         var isDataParsed = false
 
 
