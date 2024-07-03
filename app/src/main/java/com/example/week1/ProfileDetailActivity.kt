@@ -1,16 +1,12 @@
 package com.example.week1
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import android.net.Uri
 import android.widget.Toast
-import com.example.week1.databinding.ActivityMainBinding
-import com.example.week1.databinding.ItemRvSnsBinding
 import com.example.week1.databinding.ProfileDetailBinding
 //import kotlinx.android.synthetic.main.activity_profile_detail.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 
 class ProfileDetailActivity : AppCompatActivity() {
@@ -49,8 +45,8 @@ class ProfileDetailActivity : AppCompatActivity() {
         datam.apply {  //각 프로필에 따라 다른 데이터 설정
             clear()
             add(ProfileData.SnsData(imgIcon = R.drawable.callicon, number = i.snsData.number, insta = i.snsData.insta))
-            add(ProfileData.SnsData(imgIcon = R.drawable.msgicon, number = i.snsData.number, insta = i.snsData.insta))
-            add(ProfileData.SnsData(imgIcon = R.drawable.instaicon, number = i.snsData.insta, insta = i.snsData.insta))
+            add(ProfileData.SnsData(imgIcon = R.drawable.msgicon1, number = i.snsData.number, insta = i.snsData.insta))
+            add(ProfileData.SnsData(imgIcon = R.drawable.instaicon1, number = i.snsData.insta, insta = i.snsData.insta))
         }
         snsAdapter.datas = datam
         snsAdapter.notifyDataSetChanged()

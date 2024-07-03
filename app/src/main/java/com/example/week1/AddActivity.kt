@@ -77,7 +77,7 @@ class AddActivity : AppCompatActivity() {
         edtInsta = binding.edtInsta
         btnEditImage = binding.btnEdtImage
         btnSubmit = binding.btnSubmit
-        binding.btnEdtImage.setBackgroundResource(R.drawable.cake)
+        binding.btnEdtImage.setBackgroundResource(R.drawable.plus)
         binding.btnSubmit.setBackgroundResource(R.drawable.savee)
 
         btnEditImage.setOnClickListener {

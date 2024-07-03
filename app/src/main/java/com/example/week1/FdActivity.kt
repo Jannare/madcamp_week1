@@ -363,5 +363,5 @@ class FdActivity : AppCompatActivity() {
             //적용
             galleryAdapter.notifyDataSetChanged()
         }
-        }
+    }
 }
